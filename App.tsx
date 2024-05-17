@@ -1,8 +1,7 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useRoute} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeScreen, LoginScreen} from './src/screens';
-import {Button} from 'react-native';
 import {Provider} from 'react-redux';
 import {Store} from './src/redux/store';
 import {GluestackUIProvider} from '@gluestack-ui/themed';
@@ -15,20 +14,8 @@ function App(): React.JSX.Element {
     <Provider store={Store}>
       <GluestackUIProvider config={config}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              options={({navigation}) => ({
-                headerTitle: 'Galeri Buku',
-                headerRight: () => (
-                  <Button
-                    title="Masuk"
-                    onPress={() => navigation.navigate('Login')}
-                  />
-                ),
-              })}
-            />
+          <Stack.Navigator initialRouteName="Galeri Buku">
+            <Stack.Screen name="Galeri Buku" component={HomeScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
           </Stack.Navigator>
         </NavigationContainer>
