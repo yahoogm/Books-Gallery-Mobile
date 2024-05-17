@@ -11,3 +11,12 @@ export type BookItem = {
   id: string;
   volumeInfo: VolumeInfo;
 };
+
+export type userItem = {
+  email: string;
+  familyName: string;
+  givenName: string;
+  id: string;
+  name: string;
+  photo: string;
+};

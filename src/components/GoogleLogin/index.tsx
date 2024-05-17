@@ -2,29 +2,34 @@ import {Button, Card, Image, Box, ButtonText} from '@gluestack-ui/themed';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import {useEffect} from 'react';
+import {useAppDispatch} from '../../hooks/useRedux';
+import {loginUser} from '../../redux/user/userSlice';
 
 const GoogleLogin = () => {
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
         '185717950311-jcp6mou78s5vn0g5snvbakpecv0albfu.apps.googleusercontent.com',
     });
   }, []);
+
   const signIn = async () => {
     try {
-      // Check if your device supports Google Play
       await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-      // Get the users ID token
-      const {idToken} = await GoogleSignin.signIn();
+      const {user, idToken} = await GoogleSignin.signIn();
 
-      console.log(idToken);
+      if (!user) {
+        throw new Error('User info is undefined');
+      }
 
-      // Create a Google credential with the token
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-      // Sign-in the user with the credential
-      const final = await auth().signInWithCredential(googleCredential);
-      console.log(final);
+      dispatch(loginUser(user));
+
+      const authResult = await auth().signInWithCredential(googleCredential);
+      return authResult;
     } catch (error) {
       console.log(error);
     }
