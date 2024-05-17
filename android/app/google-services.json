@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "185717950311",
+    "firebase_url": "https://booksgallery-default-rtdb.firebaseio.com",
+    "project_id": "booksgallery",
+    "storage_bucket": "booksgallery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185717950311:android:54c0572373dbe7e79951c2",
+        "android_client_info": {
+          "package_name": "com.bukugaleri"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185717950311-6rvhj50dsmu57ih28udu967mpgkj68p8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bukugaleri",
+            "certificate_hash": "8e2139252fa368be138c74ac4130f5b84dd896c0"
+          }
+        },
+        {
+          "client_id": "185717950311-jcp6mou78s5vn0g5snvbakpecv0albfu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAigSMFX7mhE5A7h0Nm5cNniOjXx2RU1ac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185717950311-6cnp8hccu3o9co6avgcjktpmk2bim80r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
