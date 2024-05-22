@@ -4,6 +4,10 @@ const initialState = {
   isLogin: false,
   user:
     {
+      email: '',
+      familyName: '',
+      givenName: '',
+      id: '',
       name: '',
       photo: '',
     } || null,

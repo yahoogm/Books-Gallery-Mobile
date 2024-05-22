@@ -1,8 +1,6 @@
 import {RootState} from '../store';
 import {useSelector} from 'react-redux';
 
-export const useUserSelector = () =>
-  useSelector((state: RootState) => state.user);
+export const useUserSelector = (state: RootState) => state.user.user;
 
-export const useIsLoginSelector = () =>
-  useSelector((state: RootState) => state.user.isLogin);
+export const useIsLoginSelector = (state: RootState) => state.user.isLogin;

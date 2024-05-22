@@ -1,37 +1,76 @@
-import {Button, Card, Image, Box, ButtonText} from '@gluestack-ui/themed';
+import {
+  Button,
+  Card,
+  Image,
+  Box,
+  ButtonText,
+  useToast,
+  Toast,
+  VStack,
+  ToastTitle,
+} from '@gluestack-ui/themed';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import {useEffect} from 'react';
 import {useAppDispatch} from '../../hooks/useRedux';
 import {loginUser} from '../../redux/user/userSlice';
+import {useNavigation} from '@react-navigation/native';
 
 const GoogleLogin = () => {
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    GoogleSignin.configure({
-      webClientId:
-        '185717950311-jcp6mou78s5vn0g5snvbakpecv0albfu.apps.googleusercontent.com',
-    });
-  }, []);
+  const toast = useToast();
+  const navigation = useNavigation();
 
   const signIn = async () => {
     try {
+      GoogleSignin.configure({
+        webClientId:
+          '185717950311-jcp6mou78s5vn0g5snvbakpecv0albfu.apps.googleusercontent.com',
+      });
+
       await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
       const {user, idToken} = await GoogleSignin.signIn();
 
       if (!user) {
         throw new Error('User info is undefined');
       }
-
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      const authResult = await auth().signInWithCredential(googleCredential);
 
       dispatch(loginUser(user));
 
-      const authResult = await auth().signInWithCredential(googleCredential);
+      toast.show({
+        placement: 'top right',
+        duration: 2000,
+        render: ({id}) => {
+          const toastId = 'toast-' + id;
+          return (
+            <Toast nativeID={toastId} action="success" variant="solid">
+              <VStack space="xs">
+                <ToastTitle>
+                  {user.name !== undefined || null
+                    ? `Selamat datang ${user.name}`
+                    : 'user'}
+                </ToastTitle>
+              </VStack>
+            </Toast>
+          );
+        },
+      });
+
+      navigation.goBack();
+
       return authResult;
     } catch (error) {
-      console.log(error);
+      toast.show({
+        placement: 'top right',
+        render: () => (
+          <Toast action="error" variant="solid">
+            <VStack space="xs">
+              <ToastTitle>Login gagal</ToastTitle>
+            </VStack>
+          </Toast>
+        ),
+      });
     }
   };
 
