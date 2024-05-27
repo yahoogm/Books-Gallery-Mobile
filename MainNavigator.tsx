@@ -1,5 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {HomeScreen, LoginScreen} from './src/screens';
+import {DetailBookScreen, HomeScreen, LoginScreen} from './src/screens';
 import {
   Menu,
   Button as ButtonGluestack,
@@ -108,6 +108,7 @@ const MainNavigator = () => {
         })}
       />
       <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="DetailBook" component={DetailBookScreen} />
     </Stack.Navigator>
   );
 };
