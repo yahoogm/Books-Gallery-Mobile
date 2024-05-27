@@ -18,10 +18,21 @@ import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/useRedux';
 import {searchBooks, useSearchBookType} from '../../redux/book/bookSelector';
 import {retrieveSearchBooks} from '../../redux/book/bookThunk';
-import {BookItem} from '../../types/types';
+import {BookItem, RootStackParamList} from '../../types/types';
+import {useNavigation} from '@react-navigation/native';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+
+type NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'DetailBook'
+>;
 
 const Content = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<NavigationProp>();
 
   const books = useAppSelector(searchBooks);
   const type = useAppSelector(useSearchBookType);
@@ -122,7 +133,11 @@ const Content = () => {
                   {item.volumeInfo.title}
                 </Heading>
 
-                <Button size="sm">
+                <Button
+                  size="sm"
+                  onPress={() =>
+                    navigation.navigate('DetailBook', {bookId: item.id})
+                  }>
                   <ButtonText>Detail</ButtonText>
                 </Button>
               </Card>
