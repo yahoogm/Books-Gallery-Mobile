@@ -20,3 +20,7 @@ export type userItem = {
   name: string;
   photo: string;
 };
+
+export type RootStackParamList = {
+  DetailBook: {bookId: string};
+};
