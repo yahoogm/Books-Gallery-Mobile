@@ -1,13 +1,28 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {retrieveSearchBooks} from './bookThunk';
+import {BookState} from '../../types/types';
 
-const initialState = {
+const initialState: BookState = {
   books: {
     items: [],
   },
   readBook: [],
   reviewBook: [],
-  detailBook: null,
+  detailBook: {
+    id: '',
+    volumeInfo: {
+      title: '',
+      publishedDate: '',
+      author: [''],
+      description: '',
+      imageLinks: {
+        smallThumbnail: '',
+        thumbnail: '',
+        large: '',
+      },
+      publisher: '',
+    },
+  },
   reviewId: '',
   type: '',
 };

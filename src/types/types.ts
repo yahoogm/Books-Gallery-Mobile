@@ -12,6 +12,17 @@ export type BookItem = {
   volumeInfo: VolumeInfo;
 };
 
+export type BookState = {
+  type: string;
+  reviewId: string;
+  detailBook: BookItem;
+  books: {
+    items: [];
+  };
+  reviewBook: [];
+  readBook: [];
+};
+
 export type userItem = {
   email: string;
   familyName: string;
