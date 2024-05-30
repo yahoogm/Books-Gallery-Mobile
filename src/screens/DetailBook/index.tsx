@@ -11,29 +11,30 @@ import {RootStackParamList} from '../../types/types';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {useEffect} from 'react';
 import axios from 'axios';
+import {useAppDispatch, useAppSelector} from '../../hooks/useRedux';
+import {addDetailBook} from '../../redux/book/bookSlice';
+import {detailBookSelector} from '../../redux/book/bookSelector';
 
 type DetailBooksRouteProp = RouteProp<RootStackParamList, 'DetailBook'>;
 
 const DetailBook = () => {
   const route = useRoute<DetailBooksRouteProp>();
+  const dispatch = useAppDispatch();
+  const detailBook = useAppSelector(detailBookSelector);
   const {bookId} = route.params;
 
   const getDetailBook = async () => {
     const req = await axios.get(
       `https://www.googleapis.com/books/v1/volumes/${bookId}?=AIzaSyBSAX-msAaEmoJYIae3XsXuOx2oVr7Ta-I`,
     );
-
     const data = await req.data;
-    console.log(data.volumeInfo.title);
-
-    return data;
+    dispatch(addDetailBook(data));
   };
 
   useEffect(() => {
     getDetailBook();
   }, []);
 
-  console.log(bookId);
   return (
     <ScrollView>
       <View display="flex" alignItems="center" padding={20}>
@@ -41,7 +42,10 @@ const DetailBook = () => {
           alt="Image"
           size="2xl"
           source={{
-            uri: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+            uri:
+              detailBook.volumeInfo.imageLinks.thumbnail !== null
+                ? detailBook.volumeInfo.imageLinks.thumbnail
+                : 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
           }}
         />
 
