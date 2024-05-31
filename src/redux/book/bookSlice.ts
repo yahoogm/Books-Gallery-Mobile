@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {retrieveSearchBooks} from './bookThunk';
+import {retrieveDetailBook, retrieveSearchBooks} from './bookThunk';
 import {BookState} from '../../types/types';
 
 const initialState: BookState = {
@@ -13,7 +13,7 @@ const initialState: BookState = {
     volumeInfo: {
       title: '',
       publishedDate: '',
-      author: [''],
+      authors: [''],
       description: '',
       imageLinks: {
         smallThumbnail: '',
@@ -21,6 +21,8 @@ const initialState: BookState = {
         large: '',
       },
       publisher: '',
+      pageCount: 0,
+      categories: [''],
     },
   },
   reviewId: '',
@@ -80,8 +82,30 @@ export const bookSlice = createSlice({
           ...state,
           type: action.type,
         };
+      })
+      //#endregion retrieve search
+
+      //#region retrieve detail book
+      .addCase(retrieveDetailBook.pending, (state, action) => {
+        return {
+          ...state,
+          type: action.type,
+        };
+      })
+      .addCase(retrieveDetailBook.fulfilled, (state, action) => {
+        return {
+          ...state,
+          detailBook: action.payload,
+          type: action.type,
+        };
+      })
+      .addCase(retrieveDetailBook.rejected, (state, action) => {
+        return {
+          ...state,
+          type: action.type,
+        };
       });
-    //#endregion retrieve search
+    //#endregion retrieve detail book
   },
 });
 
