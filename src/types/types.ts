@@ -2,9 +2,11 @@ type VolumeInfo = {
   title: string;
   publishedDate: string;
   description: string;
-  author: Array<string>;
+  authors: Array<string>;
   publisher: string;
+  pageCount: number;
   imageLinks: {smallThumbnail: string; thumbnail: string; large?: string};
+  categories: Array<string>;
 };
 
 export type BookItem = {
