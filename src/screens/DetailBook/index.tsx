@@ -58,28 +58,48 @@ const DetailBook = () => {
           <View alignItems="center">
             <Heading size="md">Author:</Heading>
             <Text>
-              {authorsName !== null ? authorsName : 'Penulis tidak ditemukan'}
+              {authorsName !== null ? authorsName : 'Penulis tidak diketahui'}
             </Text>
           </View>
           <View alignItems="center">
             <Heading size="md">Publisher:</Heading>
-            <Text>{detailBook.volumeInfo.publisher}</Text>
+            <Text>
+              {detailBook.volumeInfo.publisher !== null || undefined
+                ? detailBook.volumeInfo.publisher
+                : 'Penerbit tidak diketahui'}
+            </Text>
           </View>
           <View alignItems="center">
             <Heading size="md">Published Date:</Heading>
-            <Text>{detailBook.volumeInfo.publishedDate}</Text>
+            <Text>
+              {detailBook.volumeInfo.publishedDate !== null || undefined
+                ? detailBook.volumeInfo.publishedDate
+                : 'Tanggal publikasi tidak diketahui'}
+            </Text>
           </View>
           <View alignItems="center">
             <Heading size="md">Page Count:</Heading>
-            <Text>{detailBook.volumeInfo.pageCount}</Text>
+            <Text>
+              {detailBook.volumeInfo.pageCount !== null || undefined
+                ? detailBook.volumeInfo.pageCount
+                : 'Jumlah halaman tidak diketahui'}
+            </Text>
           </View>
           <View alignItems="center">
             <Heading size="md">Category:</Heading>
-            <Text>{categories}</Text>
+            <Text>
+              {categories.length !== 0 || null
+                ? categories
+                : 'Kategori tidak diketahui'}
+            </Text>
           </View>
           <View alignItems="center">
             <Heading size="md">Description:</Heading>
-            <Text>{detailBook.volumeInfo.description}</Text>
+            <Text>
+              {detailBook.volumeInfo.description !== null || undefined
+                ? detailBook.volumeInfo.description
+                : 'Deksripsi tidak diketahui'}
+            </Text>
           </View>
         </View>
       </View>
