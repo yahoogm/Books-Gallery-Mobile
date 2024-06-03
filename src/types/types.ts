@@ -7,6 +7,7 @@ type VolumeInfo = {
   pageCount: number;
   imageLinks: {smallThumbnail: string; thumbnail: string; large?: string};
   categories: Array<string>;
+  industryIdentifiers: Array<{identifier: string; type: string}>;
 };
 
 export type BookItem = {

@@ -23,6 +23,7 @@ const initialState: BookState = {
       publisher: '',
       pageCount: 0,
       categories: [''],
+      industryIdentifiers: [{identifier: '', type: ''}],
     },
   },
   reviewId: '',
