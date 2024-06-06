@@ -23,7 +23,6 @@ export type BookState = {
     items: [];
   };
   reviewBook: [];
-  readBook: [];
 };
 
 export type userItem = {

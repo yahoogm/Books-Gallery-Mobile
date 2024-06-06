@@ -6,7 +6,6 @@ const initialState: BookState = {
   books: {
     items: [],
   },
-  readBook: [],
   reviewBook: [],
   detailBook: {
     id: '',
@@ -45,13 +44,6 @@ export const bookSlice = createSlice({
       return {
         ...state,
         readBook: action.payload,
-      };
-    },
-
-    addReviewBook: (state, action) => {
-      return {
-        ...state,
-        reviewBook: action.payload,
       };
     },
 
@@ -111,5 +103,5 @@ export const bookSlice = createSlice({
 });
 
 const {actions, reducer: bookReducer} = bookSlice;
-export const {addDetailBook, addReadBook, addReviewBook, addReviewId} = actions;
+export const {addDetailBook, addReadBook, addReviewId} = actions;
 export default bookReducer;

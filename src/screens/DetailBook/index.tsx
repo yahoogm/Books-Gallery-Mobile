@@ -27,16 +27,12 @@ import {
 } from '@gluestack-ui/themed';
 import {RootStackParamList} from '../../types/types';
 import {RouteProp, useRoute} from '@react-navigation/native';
-import {useEffect, useState, useCallback} from 'react';
+import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/useRedux';
-import {
-  detailBookSelector,
-  identifierBookSelector,
-} from '../../redux/book/bookSelector';
+import {detailBookSelector} from '../../redux/book/bookSelector';
 import {modifiedName} from '../../../utils/const/const';
 import {retrieveDetailBook} from '../../redux/book/bookThunk';
 import React from 'react';
-import {addReadBook} from '../../redux/book/bookSlice';
 import {ToastTitle} from '@gluestack-ui/themed';
 import WebView from 'react-native-webview';
 
@@ -46,34 +42,25 @@ const DetailBook = () => {
   const route = useRoute<DetailBooksRouteProp>();
   const dispatch = useAppDispatch();
   const detailBook = useAppSelector(detailBookSelector);
-  const identifier = useAppSelector(identifierBookSelector);
 
   const {bookId} = route.params;
   const toast = useToast();
 
   const [showModal, setShowModal] = useState(false);
   const [showBook, setShowBook] = useState(false);
-  const ref = React.useRef(null);
+  const refComment = React.useRef(null);
+  const refReadBook = React.useRef(null);
 
   useEffect(() => {
     dispatch(retrieveDetailBook({bookId: bookId}));
   }, [bookId, dispatch]);
 
-  useEffect(() => {
-    if (bookId) {
-      dispatch(
-        addReadBook([
-          bookId,
-          'ISBN:' + detailBook.volumeInfo.industryIdentifiers[0].identifier,
-        ]),
-      );
-    } else {
-      dispatch(addReadBook([bookId]));
-    }
-  }, [bookId, dispatch]);
-
   const authorsName = modifiedName(detailBook?.volumeInfo.authors);
   const categories = modifiedName(detailBook?.volumeInfo.categories);
+
+  const isbn = parseInt(
+    detailBook.volumeInfo.industryIdentifiers[0].identifier,
+  );
 
   const alertNotFound = () => {
     toast.show({
@@ -84,44 +71,13 @@ const DetailBook = () => {
         return (
           <Toast nativeID={toastId} action="error" variant="solid">
             <VStack space="xs">
-              <ToastTitle>Buku tidak ditemukan</ToastTitle>
+              <ToastTitle>Buku tidak dapat dibaca</ToastTitle>
             </VStack>
           </Toast>
         );
       },
     });
   };
-
-  // const initialize = useCallback(async () => {
-  //   let viewer = await new google.books.DefaultViewer(canvasRef.current);
-  //   viewer.load(identifiers, alertNotFound);
-  // }, [alertNotFound, identifiers]);
-
-  // const initialize = useCallback(async () => {
-  //   let viewer = await new google.books.DefaultViewer(canvasRef.current); // eslint-disable-line no-undef
-  //   viewer.load(identifier, alertNotFound);
-  // }, [alertNotFound, identifier]);
-
-  const htmlContent = detailBook.volumeInfo.industryIdentifiers
-    ? `
-    <meta name="viewport" content="width=device-width">
-    <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
-    <script type="text/javascript">
-      google.books.load();
-
-      function initialize() {
-        var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
-        viewer.load('ISBN:0133522857');
-      }
-
-      google.books.setOnLoadCallback(initialize);
-    </script>
-
-    <body>
-    <div id="viewerCanvas" style="width: 200px; height: 500px"></div>
-  </body>
-  `
-    : '';
 
   return (
     <ScrollView>
@@ -139,14 +95,11 @@ const DetailBook = () => {
         />
 
         <View display="flex" flexDirection="row" gap={10} marginTop={10}>
-          <Button
-            onPress={() => {
-              setShowBook(!showBook);
-              console.log('tst');
-            }}>
+          <Button onPress={() => setShowBook(true)} ref={refReadBook}>
             <ButtonText>Baca Buku</ButtonText>
           </Button>
-          <Button onPress={() => setShowModal(true)} ref={ref}>
+
+          <Button onPress={() => setShowModal(true)} ref={refComment}>
             <ButtonText>Tambahkan Komentar</ButtonText>
           </Button>
           <Modal
@@ -154,7 +107,7 @@ const DetailBook = () => {
             onClose={() => {
               setShowModal(false);
             }}
-            finalFocusRef={ref}>
+            finalFocusRef={refComment}>
             <ModalBackdrop />
             <ModalContent>
               <ModalHeader>
@@ -231,7 +184,9 @@ const DetailBook = () => {
           <View alignItems="center">
             <Heading size="md">Category:</Heading>
             <Text>
-              {categories.length !== 0 || null
+              {(categories !== undefined && categories.length !== 0) ||
+              null ||
+              undefined
                 ? categories
                 : 'Kategori tidak diketahui'}
             </Text>
@@ -275,22 +230,54 @@ const DetailBook = () => {
         </Box>
       </View>
 
-      <View backgroundColor="blue" padding={20}>
-        {showBook ? (
-          <ScrollView>
-            <WebView
-              originWhitelist={['*']}
-              style={{width: 500, height: 500}}
-              onLoad={() => console.log('loaded')}
-              source={{
-                html: htmlContent,
-              }}
-            />
-          </ScrollView>
-        ) : (
-          <Text>tidak ada</Text>
-        )}
-      </View>
+      {showBook && (
+        <ScrollView>
+          <Modal
+            size="lg"
+            padding={0}
+            isOpen={showBook}
+            onClose={() => {
+              setShowBook(false);
+            }}
+            finalFocusRef={refReadBook}>
+            <ModalBackdrop />
+            <ModalContent>
+              <ModalBody marginTop={8}>
+                <WebView
+                  originWhitelist={['*']}
+                  style={{width: 'auto', height: 500}}
+                  source={{
+                    html: `
+                        <meta name="viewport" content="width=device-width">
+                        <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+                        <script type="text/javascript">
+                          google.books.load();
+
+                          function alertNotFound() {
+                            alert("Buku tidak dapat dibaca!");
+                          }
+
+                          function initialize() {
+                            var viewer = new google.books.DefaultViewer(
+                              document.getElementById('viewerCanvas'),
+                            );
+                            viewer.load('ISBN:qwdqdq', alertNotFound);
+                          }
+
+                          google.books.setOnLoadCallback(initialize);
+                        </script>
+
+                        <body>
+                        <div id="viewerCanvas" style="width: 500px; height: 860px"></div>
+                      </body>
+                      `,
+                  }}
+                />
+              </ModalBody>
+            </ModalContent>
+          </Modal>
+        </ScrollView>
+      )}
     </ScrollView>
   );
 };
