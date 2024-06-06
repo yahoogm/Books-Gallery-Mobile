@@ -20,10 +20,7 @@ import {searchBooks, useSearchBookType} from '../../redux/book/bookSelector';
 import {retrieveSearchBooks} from '../../redux/book/bookThunk';
 import {BookItem, RootStackParamList} from '../../types/types';
 import {useNavigation} from '@react-navigation/native';
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type NavigationProp = NativeStackNavigationProp<
   RootStackParamList,

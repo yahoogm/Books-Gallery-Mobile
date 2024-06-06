@@ -36,4 +36,5 @@ export type userItem = {
 
 export type RootStackParamList = {
   DetailBook: {bookId: string};
+  Login: undefined;
 };

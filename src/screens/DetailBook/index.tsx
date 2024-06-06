@@ -26,7 +26,7 @@ import {
   Toast,
 } from '@gluestack-ui/themed';
 import {RootStackParamList} from '../../types/types';
-import {RouteProp, useRoute} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/useRedux';
 import {detailBookSelector} from '../../redux/book/bookSelector';
@@ -35,16 +35,45 @@ import {retrieveDetailBook} from '../../redux/book/bookThunk';
 import React from 'react';
 import {ToastTitle} from '@gluestack-ui/themed';
 import WebView from 'react-native-webview';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
+import firestore from '@react-native-firebase/firestore';
+import {
+  useIsLoginSelector,
+  useUserSelector,
+} from '../../redux/user/userSelector';
+import 'react-native-get-random-values';
+import {v4 as uuidv4} from 'uuid';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type DetailBooksRouteProp = RouteProp<RootStackParamList, 'DetailBook'>;
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
+
+interface MyFormValues {
+  review: string;
+}
+
+interface addReviewValues {
+  userName: string;
+  bookId: string;
+  profilePic: string;
+  id: string;
+  ulasan: string;
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 const DetailBook = () => {
   const route = useRoute<DetailBooksRouteProp>();
   const dispatch = useAppDispatch();
   const detailBook = useAppSelector(detailBookSelector);
+  const user = useAppSelector(useUserSelector);
+  const isLogin = useAppSelector(useIsLoginSelector);
 
   const {bookId} = route.params;
   const toast = useToast();
+  const navigation = useNavigation<NavigationProp>();
 
   const [showModal, setShowModal] = useState(false);
   const [showBook, setShowBook] = useState(false);
@@ -62,16 +91,69 @@ const DetailBook = () => {
     detailBook.volumeInfo.industryIdentifiers[0].identifier,
   );
 
-  const alertNotFound = () => {
+  const initialValues: MyFormValues = {review: ''};
+
+  const reviewSchema = Yup.object().shape({
+    review: Yup.string()
+      .min(10, 'Minimal 10 karakter')
+      .max(200, 'Maximal 100 karakter')
+      .required('Mohon mengisi komentar!'),
+  });
+
+  const submitReview = async (review: addReviewValues) => {
+    try {
+      firestore()
+        .collection('ulasan')
+        .add(review)
+        .then(() => {
+          console.log('User added!');
+        });
+
+      toast.show({
+        placement: 'top right',
+        duration: 2000,
+        render: ({id}) => {
+          const toastId = 'toast-' + id;
+          return (
+            <Toast nativeID={toastId} action="success" variant="solid">
+              <VStack space="xs">
+                <ToastTitle>Berhasil</ToastTitle>
+              </VStack>
+            </Toast>
+          );
+        },
+      });
+    } catch (error) {
+      toast.show({
+        placement: 'top right',
+        duration: 2000,
+        render: ({id}) => {
+          const toastId = 'toast-' + id;
+          return (
+            <Toast nativeID={toastId} action="error" variant="solid">
+              <VStack space="xs">
+                <ToastTitle>Gagal</ToastTitle>
+              </VStack>
+            </Toast>
+          );
+        },
+      });
+    }
+  };
+
+  const handleNavigateUserNotLogin = () => {
+    navigation.navigate('Login');
+    setShowModal(false);
+
     toast.show({
       placement: 'top right',
       duration: 2000,
       render: ({id}) => {
         const toastId = 'toast-' + id;
         return (
-          <Toast nativeID={toastId} action="error" variant="solid">
+          <Toast nativeID={toastId} action="info" variant="solid">
             <VStack space="xs">
-              <ToastTitle>Buku tidak dapat dibaca</ToastTitle>
+              <ToastTitle>Silahkan login dahulu!</ToastTitle>
             </VStack>
           </Toast>
         );
@@ -116,36 +198,76 @@ const DetailBook = () => {
                   <Icon as={CloseIcon} />
                 </ModalCloseButton>
               </ModalHeader>
-              <ModalBody>
-                <Textarea
-                  size="md"
-                  isReadOnly={false}
-                  isInvalid={false}
-                  isDisabled={false}>
-                  <TextareaInput placeholder="Tuliskan komentar anda..." />
-                </Textarea>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  action="secondary"
-                  mr="$3"
-                  onPress={() => {
-                    setShowModal(false);
-                  }}>
-                  <ButtonText>Batal</ButtonText>
-                </Button>
-                <Button
-                  size="sm"
-                  action="positive"
-                  borderWidth="$0"
-                  onPress={() => {
-                    setShowModal(false);
-                  }}>
-                  <ButtonText>Kirim</ButtonText>
-                </Button>
-              </ModalFooter>
+
+              <Formik
+                validationSchema={reviewSchema}
+                initialValues={initialValues}
+                onSubmit={values => {
+                  const date = new Date();
+                  const id = uuidv4();
+
+                  submitReview({
+                    userName: user.name,
+                    bookId: detailBook.id,
+                    profilePic: user.photo,
+                    id: id,
+                    ulasan: values.review,
+                    userId: user.id,
+                    createdAt: date,
+                    updatedAt: date,
+                  });
+
+                  setShowModal(false);
+                }}>
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  errors,
+                  touched,
+                }) => (
+                  <View>
+                    <ModalBody>
+                      <Textarea
+                        size="md"
+                        isRequired={true}
+                        isReadOnly={false}
+                        isInvalid={false}
+                        isDisabled={false}>
+                        <TextareaInput
+                          placeholder="Tuliskan komentar anda..."
+                          onChangeText={handleChange('review')}
+                          onBlur={handleBlur('review')}
+                          value={values.review}
+                          fontSize={'$sm'}
+                        />
+                      </Textarea>
+
+                      {errors.review && touched.review ? (
+                        <Text size="xs" bold={true} color="red">
+                          {errors.review}
+                        </Text>
+                      ) : null}
+                    </ModalBody>
+
+                    <ModalFooter paddingVertical={0} paddingBottom={10}>
+                      <Button
+                        size="sm"
+                        action="positive"
+                        marginTop={0}
+                        borderWidth={'$0'}
+                        onPress={() =>
+                          isLogin
+                            ? handleSubmit()
+                            : handleNavigateUserNotLogin()
+                        }>
+                        <ButtonText>Kirim</ButtonText>
+                      </Button>
+                    </ModalFooter>
+                  </View>
+                )}
+              </Formik>
             </ModalContent>
           </Modal>
         </View>
@@ -261,7 +383,7 @@ const DetailBook = () => {
                             var viewer = new google.books.DefaultViewer(
                               document.getElementById('viewerCanvas'),
                             );
-                            viewer.load('ISBN:qwdqdq', alertNotFound);
+                            viewer.load('ISBN:${isbn}', alertNotFound);
                           }
 
                           google.books.setOnLoadCallback(initialize);

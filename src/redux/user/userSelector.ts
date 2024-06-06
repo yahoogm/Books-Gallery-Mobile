@@ -1,5 +1,4 @@
 import {RootState} from '../store';
-import {useSelector} from 'react-redux';
 
 export const useUserSelector = (state: RootState) => state.user.user;
 
