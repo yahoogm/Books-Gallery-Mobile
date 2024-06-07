@@ -10,6 +10,17 @@ type VolumeInfo = {
   industryIdentifiers: Array<{identifier: string; type: string}>;
 };
 
+export type Review = {
+  bookId: string;
+  createdAt: {};
+  id: string;
+  profilePic: string;
+  ulasan: string;
+  updatedAt: {};
+  userId: string;
+  userName: string;
+};
+
 export type BookItem = {
   id: string;
   volumeInfo: VolumeInfo;
@@ -22,7 +33,7 @@ export type BookState = {
   books: {
     items: [];
   };
-  reviewBook: [];
+  reviewBook: Array<Review>;
 };
 
 export type userItem = {

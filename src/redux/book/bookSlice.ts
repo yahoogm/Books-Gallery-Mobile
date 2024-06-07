@@ -6,7 +6,20 @@ const initialState: BookState = {
   books: {
     items: [],
   },
-  reviewBook: [],
+
+  reviewBook: [
+    {
+      bookId: '',
+      createdAt: {},
+      id: '',
+      profilePic: '',
+      ulasan: '',
+      updatedAt: {},
+      userId: '',
+      userName: '',
+    },
+  ],
+
   detailBook: {
     id: '',
     volumeInfo: {
@@ -25,6 +38,7 @@ const initialState: BookState = {
       industryIdentifiers: [{identifier: '', type: ''}],
     },
   },
+
   reviewId: '',
   type: '',
 };

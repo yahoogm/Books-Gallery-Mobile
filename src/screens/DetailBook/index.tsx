@@ -25,7 +25,7 @@ import {
   useToast,
   Toast,
 } from '@gluestack-ui/themed';
-import {RootStackParamList} from '../../types/types';
+import {Review, RootStackParamList} from '../../types/types';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/useRedux';
@@ -80,9 +80,62 @@ const DetailBook = () => {
   const refComment = React.useRef(null);
   const refReadBook = React.useRef(null);
 
+  const isReview = (data: any): data is Review => {
+    return (
+      data &&
+      typeof data.bookId === 'string' &&
+      typeof data.createdAt === 'object' &&
+      typeof data.id === 'string' &&
+      typeof data.profilePic === 'string' &&
+      typeof data.ulasan === 'string' &&
+      typeof data.updatedAt === 'object' &&
+      typeof data.userId === 'string' &&
+      typeof data.userName === 'string'
+    );
+  };
+
   useEffect(() => {
     dispatch(retrieveDetailBook({bookId: bookId}));
   }, [bookId, dispatch]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const reviews: Review[] = [];
+
+        const querySnapshot = await firestore().collection('ulasan').get();
+
+        querySnapshot.forEach(documentSnapshot => {
+          const data = documentSnapshot.data();
+          if (isReview(data)) {
+            reviews.push(data);
+          }
+        });
+
+        const filteringBooks = reviews.filter(
+          review => review.bookId === bookId,
+        );
+        console.log(filteringBooks);
+      } catch (error) {
+        toast.show({
+          placement: 'top right',
+          duration: 2000,
+          render: ({id}) => {
+            const toastId = 'toast-' + id;
+            return (
+              <Toast nativeID={toastId} action="error" variant="solid">
+                <VStack space="xs">
+                  <ToastTitle>Gagal mengambil komentar</ToastTitle>
+                </VStack>
+              </Toast>
+            );
+          },
+        });
+      }
+    };
+
+    fetchReviews();
+  }, []);
 
   const authorsName = modifiedName(detailBook?.volumeInfo.authors);
   const categories = modifiedName(detailBook?.volumeInfo.categories);
@@ -106,23 +159,21 @@ const DetailBook = () => {
         .collection('ulasan')
         .add(review)
         .then(() => {
-          console.log('User added!');
+          toast.show({
+            placement: 'top right',
+            duration: 2000,
+            render: ({id}) => {
+              const toastId = 'toast-' + id;
+              return (
+                <Toast nativeID={toastId} action="success" variant="solid">
+                  <VStack space="xs">
+                    <ToastTitle>Berhasil</ToastTitle>
+                  </VStack>
+                </Toast>
+              );
+            },
+          });
         });
-
-      toast.show({
-        placement: 'top right',
-        duration: 2000,
-        render: ({id}) => {
-          const toastId = 'toast-' + id;
-          return (
-            <Toast nativeID={toastId} action="success" variant="solid">
-              <VStack space="xs">
-                <ToastTitle>Berhasil</ToastTitle>
-              </VStack>
-            </Toast>
-          );
-        },
-      });
     } catch (error) {
       toast.show({
         placement: 'top right',
