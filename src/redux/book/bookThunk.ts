@@ -1,6 +1,8 @@
 import {API_KEY, API_URL} from '@env';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
+import firestore from '@react-native-firebase/firestore';
+import {addReviewValues} from '../../types/types';
 
 type Params = {
   search?: string;

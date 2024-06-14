@@ -10,11 +10,11 @@ const initialState: BookState = {
   reviewBook: [
     {
       bookId: '',
-      createdAt: {},
+      createdAt: '',
       id: '',
       profilePic: '',
       ulasan: '',
-      updatedAt: {},
+      updatedAt: '',
       userId: '',
       userName: '',
     },
@@ -41,6 +41,7 @@ const initialState: BookState = {
 
   reviewId: '',
   type: '',
+  typeDetailBook: 'product/retrieveDetailBook/pending',
 };
 
 export const bookSlice = createSlice({
@@ -58,6 +59,13 @@ export const bookSlice = createSlice({
       return {
         ...state,
         readBook: action.payload,
+      };
+    },
+
+    retrieveReviewBook: (state, action) => {
+      return {
+        ...state,
+        reviewBook: action.payload,
       };
     },
 
@@ -96,20 +104,20 @@ export const bookSlice = createSlice({
       .addCase(retrieveDetailBook.pending, (state, action) => {
         return {
           ...state,
-          type: action.type,
+          typeDetailBook: action.type,
         };
       })
       .addCase(retrieveDetailBook.fulfilled, (state, action) => {
         return {
           ...state,
           detailBook: action.payload,
-          type: action.type,
+          typeDetailBook: action.type,
         };
       })
       .addCase(retrieveDetailBook.rejected, (state, action) => {
         return {
           ...state,
-          type: action.type,
+          typeDetailBook: action.type,
         };
       });
     //#endregion retrieve detail book
@@ -117,5 +125,6 @@ export const bookSlice = createSlice({
 });
 
 const {actions, reducer: bookReducer} = bookSlice;
-export const {addDetailBook, addReadBook, addReviewId} = actions;
+export const {addDetailBook, addReadBook, retrieveReviewBook, addReviewId} =
+  actions;
 export default bookReducer;

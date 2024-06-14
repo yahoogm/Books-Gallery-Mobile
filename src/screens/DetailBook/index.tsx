@@ -24,12 +24,18 @@ import {
   TextareaInput,
   useToast,
   Toast,
+  Input,
+  InputField,
 } from '@gluestack-ui/themed';
 import {Review, RootStackParamList} from '../../types/types';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/useRedux';
-import {detailBookSelector} from '../../redux/book/bookSelector';
+import {
+  detailBookSelector,
+  typeBookSelector,
+  useReviewBookSelector,
+} from '../../redux/book/bookSelector';
 import {modifiedName} from '../../../utils/const/const';
 import {retrieveDetailBook} from '../../redux/book/bookThunk';
 import React from 'react';
@@ -45,6 +51,7 @@ import {
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {retrieveReviewBook} from '../../redux/book/bookSlice';
 
 type DetailBooksRouteProp = RouteProp<RootStackParamList, 'DetailBook'>;
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
@@ -60,35 +67,36 @@ interface addReviewValues {
   id: string;
   ulasan: string;
   userId: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const DetailBook = () => {
   const route = useRoute<DetailBooksRouteProp>();
   const dispatch = useAppDispatch();
+
   const detailBook = useAppSelector(detailBookSelector);
   const user = useAppSelector(useUserSelector);
   const isLogin = useAppSelector(useIsLoginSelector);
+  const bookReview = useAppSelector(useReviewBookSelector);
+  const typeBook = useAppSelector(typeBookSelector);
 
   const {bookId} = route.params;
   const toast = useToast();
   const navigation = useNavigation<NavigationProp>();
 
-  const [showModal, setShowModal] = useState(false);
   const [showBook, setShowBook] = useState(false);
-  const refComment = React.useRef(null);
   const refReadBook = React.useRef(null);
 
   const isReview = (data: any): data is Review => {
     return (
       data &&
       typeof data.bookId === 'string' &&
-      typeof data.createdAt === 'object' &&
+      typeof data.createdAt === 'string' &&
       typeof data.id === 'string' &&
       typeof data.profilePic === 'string' &&
       typeof data.ulasan === 'string' &&
-      typeof data.updatedAt === 'object' &&
+      typeof data.updatedAt === 'string' &&
       typeof data.userId === 'string' &&
       typeof data.userName === 'string'
     );
@@ -96,46 +104,22 @@ const DetailBook = () => {
 
   useEffect(() => {
     dispatch(retrieveDetailBook({bookId: bookId}));
-  }, [bookId, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const reviews: Review[] = [];
+    const unsubscribe = firestore()
+      .collection('ulasan')
+      .where('bookId', '==', bookId)
+      .onSnapshot(querySnapshot => {
+        const reviews: Review[] = querySnapshot.docs
+          .map(doc => doc.data())
+          .filter(isReview);
 
-        const querySnapshot = await firestore().collection('ulasan').get();
+        dispatch(retrieveReviewBook(reviews));
+      });
 
-        querySnapshot.forEach(documentSnapshot => {
-          const data = documentSnapshot.data();
-          if (isReview(data)) {
-            reviews.push(data);
-          }
-        });
-
-        const filteringBooks = reviews.filter(
-          review => review.bookId === bookId,
-        );
-        console.log(filteringBooks);
-      } catch (error) {
-        toast.show({
-          placement: 'top right',
-          duration: 2000,
-          render: ({id}) => {
-            const toastId = 'toast-' + id;
-            return (
-              <Toast nativeID={toastId} action="error" variant="solid">
-                <VStack space="xs">
-                  <ToastTitle>Gagal mengambil komentar</ToastTitle>
-                </VStack>
-              </Toast>
-            );
-          },
-        });
-      }
-    };
-
-    fetchReviews();
-  }, []);
+    return () => unsubscribe();
+  }, [bookId, dispatch]);
 
   const authorsName = modifiedName(detailBook?.volumeInfo.authors);
   const categories = modifiedName(detailBook?.volumeInfo.categories);
@@ -153,7 +137,7 @@ const DetailBook = () => {
       .required('Mohon mengisi komentar!'),
   });
 
-  const submitReview = async (review: addReviewValues) => {
+  const addReviewBook = (review: addReviewValues) => {
     try {
       firestore()
         .collection('ulasan')
@@ -194,7 +178,6 @@ const DetailBook = () => {
 
   const handleNavigateUserNotLogin = () => {
     navigation.navigate('Login');
-    setShowModal(false);
 
     toast.show({
       placement: 'top right',
@@ -212,6 +195,17 @@ const DetailBook = () => {
     });
   };
 
+  const uriDetailBook =
+    detailBook.volumeInfo.imageLinks &&
+    detailBook.volumeInfo?.imageLinks?.thumbnail
+      ? detailBook.volumeInfo?.imageLinks?.thumbnail
+      : 'https://plus.unsplash.com/premium_photo-1698084059435-a50ddfd69303?q=80&w=1850&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+  const loading = typeBook === retrieveDetailBook.pending.type;
+
+  console.log(bookReview.length);
+
+  if (loading) return <Text>Loading</Text>;
+
   return (
     <ScrollView>
       <View display="flex" alignItems="center" padding={20}>
@@ -221,9 +215,7 @@ const DetailBook = () => {
           h={340}
           borderRadius={10}
           source={{
-            uri: detailBook.volumeInfo.imageLinks.thumbnail
-              ? detailBook.volumeInfo.imageLinks.thumbnail
-              : 'https://plus.unsplash.com/premium_photo-1698084059435-a50ddfd69303?q=80&w=1850&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            uri: uriDetailBook,
           }}
         />
 
@@ -231,96 +223,6 @@ const DetailBook = () => {
           <Button onPress={() => setShowBook(true)} ref={refReadBook}>
             <ButtonText>Baca Buku</ButtonText>
           </Button>
-
-          <Button onPress={() => setShowModal(true)} ref={refComment}>
-            <ButtonText>Tambahkan Komentar</ButtonText>
-          </Button>
-          <Modal
-            isOpen={showModal}
-            onClose={() => {
-              setShowModal(false);
-            }}
-            finalFocusRef={refComment}>
-            <ModalBackdrop />
-            <ModalContent>
-              <ModalHeader>
-                <Heading size="lg">Tambahkan Komentar</Heading>
-                <ModalCloseButton>
-                  <Icon as={CloseIcon} />
-                </ModalCloseButton>
-              </ModalHeader>
-
-              <Formik
-                validationSchema={reviewSchema}
-                initialValues={initialValues}
-                onSubmit={values => {
-                  const date = new Date();
-                  const id = uuidv4();
-
-                  submitReview({
-                    userName: user.name,
-                    bookId: detailBook.id,
-                    profilePic: user.photo,
-                    id: id,
-                    ulasan: values.review,
-                    userId: user.id,
-                    createdAt: date,
-                    updatedAt: date,
-                  });
-
-                  setShowModal(false);
-                }}>
-                {({
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  values,
-                  errors,
-                  touched,
-                }) => (
-                  <View>
-                    <ModalBody>
-                      <Textarea
-                        size="md"
-                        isRequired={true}
-                        isReadOnly={false}
-                        isInvalid={false}
-                        isDisabled={false}>
-                        <TextareaInput
-                          placeholder="Tuliskan komentar anda..."
-                          onChangeText={handleChange('review')}
-                          onBlur={handleBlur('review')}
-                          value={values.review}
-                          fontSize={'$sm'}
-                        />
-                      </Textarea>
-
-                      {errors.review && touched.review ? (
-                        <Text size="xs" bold={true} color="red">
-                          {errors.review}
-                        </Text>
-                      ) : null}
-                    </ModalBody>
-
-                    <ModalFooter paddingVertical={0} paddingBottom={10}>
-                      <Button
-                        size="sm"
-                        action="positive"
-                        marginTop={0}
-                        borderWidth={'$0'}
-                        onPress={() =>
-                          isLogin
-                            ? handleSubmit()
-                            : handleNavigateUserNotLogin()
-                        }>
-                        <ButtonText>Kirim</ButtonText>
-                      </Button>
-                    </ModalFooter>
-                  </View>
-                )}
-              </Formik>
-            </ModalContent>
-          </Modal>
         </View>
 
         <View alignItems="center" marginTop={10}>
@@ -378,29 +280,93 @@ const DetailBook = () => {
       <View padding={20}>
         <View>
           <Heading>Komentar</Heading>
+          <Formik
+            validationSchema={reviewSchema}
+            initialValues={initialValues}
+            onSubmit={(values, {resetForm}) => {
+              const date = new Date();
+              const id = uuidv4();
+
+              addReviewBook({
+                userName: user.name,
+                bookId: detailBook.id,
+                profilePic: user.photo,
+                id: id,
+                ulasan: values.review,
+                userId: user.id,
+                createdAt: date.toISOString(),
+                updatedAt: date.toISOString(),
+              });
+
+              resetForm();
+            }}>
+            {({handleChange, handleSubmit, values}) => (
+              <View>
+                <Textarea
+                  size="sm"
+                  isRequired={true}
+                  isReadOnly={false}
+                  isInvalid={false}
+                  isDisabled={false}>
+                  <TextareaInput
+                    placeholder="Tuliskan komentar anda..."
+                    onChangeText={handleChange('review')}
+                    value={values.review}
+                    fontSize={'$sm'}
+                    maxLength={200}
+                  />
+                </Textarea>
+
+                <Button
+                  size="sm"
+                  width={'$1/4'}
+                  action="positive"
+                  marginVertical={10}
+                  isDisabled={values.review.length < 10 ? true : false}
+                  onPress={() =>
+                    isLogin ? handleSubmit() : handleNavigateUserNotLogin()
+                  }>
+                  <ButtonText>Kirim</ButtonText>
+                </Button>
+              </View>
+            )}
+          </Formik>
         </View>
+        {bookReview.length !== 0 ? (
+          bookReview.map(book => {
+            return (
+              <Box display="flex" flexDirection="row" mt={10} key={book.id}>
+                <Avatar mr="$3">
+                  <AvatarFallbackText fontFamily="$heading">
+                    Picture
+                  </AvatarFallbackText>
+                  <AvatarImage
+                    alt="gambar"
+                    source={{
+                      uri: book.profilePic
+                        ? book.profilePic
+                        : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+                    }}
+                  />
+                </Avatar>
+                <VStack flex={1}>
+                  <Box display="flex">
+                    <Heading size="sm" fontFamily="$heading" mb={1}>
+                      {book.userName}
+                    </Heading>
+                    <Text size="xs">{book.createdAt}</Text>
+                  </Box>
 
-        <Box display="flex" flexDirection="row" mt={10}>
-          <Avatar mr="$3">
-            <AvatarFallbackText fontFamily="$heading">RR</AvatarFallbackText>
-            <AvatarImage
-              alt="gambar"
-              source={{
-                uri: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
-              }}
-            />
-          </Avatar>
-          <VStack flex={1}>
-            <Box display="flex">
-              <Heading size="sm" fontFamily="$heading" mb={1}>
-                John Smith
-              </Heading>
-              <Text size="xs">2024-06-02 13:32:21</Text>
-            </Box>
-
-            <Text size="sm" color="black"></Text>
-          </VStack>
-        </Box>
+                  <Text size="sm" color="black">
+                    {book.ulasan}
+                  </Text>
+                </VStack>
+              </Box>
+            );
+          })
+        ) : (
+          <Text>Tidak ada komentar</Text>
+        )}
       </View>
 
       {showBook && (

@@ -12,11 +12,11 @@ type VolumeInfo = {
 
 export type Review = {
   bookId: string;
-  createdAt: {};
+  createdAt: string;
   id: string;
   profilePic: string;
   ulasan: string;
-  updatedAt: {};
+  updatedAt: string;
   userId: string;
   userName: string;
 };
@@ -34,6 +34,7 @@ export type BookState = {
     items: [];
   };
   reviewBook: Array<Review>;
+  typeDetailBook: string;
 };
 
 export type userItem = {
@@ -48,4 +49,15 @@ export type userItem = {
 export type RootStackParamList = {
   DetailBook: {bookId: string};
   Login: undefined;
+};
+
+export type addReviewValues = {
+  userName: string;
+  bookId: string;
+  profilePic: string;
+  id: string;
+  ulasan: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
 };
