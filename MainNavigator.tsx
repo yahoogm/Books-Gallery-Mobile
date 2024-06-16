@@ -33,7 +33,7 @@ const MainNavigator = () => {
       dispatch(logoutUser({}));
 
       toast.show({
-        placement: 'top right',
+        placement: 'bottom',
         render: ({id}) => {
           const toastId = 'toast-' + id;
           return (
@@ -47,7 +47,7 @@ const MainNavigator = () => {
       });
     } catch (error) {
       toast.show({
-        placement: 'top right',
+        placement: 'bottom',
         render: ({id}) => {
           const toastId = 'toast-' + id;
           return (

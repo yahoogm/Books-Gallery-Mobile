@@ -114,7 +114,6 @@ const DetailBook = () => {
         const reviews: Review[] = querySnapshot.docs
           .map(doc => doc.data())
           .filter(isReview);
-
         dispatch(retrieveReviewBook(reviews));
       });
 
@@ -144,14 +143,14 @@ const DetailBook = () => {
         .add(review)
         .then(() => {
           toast.show({
-            placement: 'top right',
+            placement: 'bottom',
             duration: 2000,
             render: ({id}) => {
               const toastId = 'toast-' + id;
               return (
                 <Toast nativeID={toastId} action="success" variant="solid">
                   <VStack space="xs">
-                    <ToastTitle>Berhasil</ToastTitle>
+                    <ToastTitle>Komentar Terkirim</ToastTitle>
                   </VStack>
                 </Toast>
               );
@@ -160,14 +159,14 @@ const DetailBook = () => {
         });
     } catch (error) {
       toast.show({
-        placement: 'top right',
+        placement: 'bottom',
         duration: 2000,
         render: ({id}) => {
           const toastId = 'toast-' + id;
           return (
             <Toast nativeID={toastId} action="error" variant="solid">
               <VStack space="xs">
-                <ToastTitle>Gagal</ToastTitle>
+                <ToastTitle>Komentar Gagal dikirim </ToastTitle>
               </VStack>
             </Toast>
           );
@@ -180,7 +179,7 @@ const DetailBook = () => {
     navigation.navigate('Login');
 
     toast.show({
-      placement: 'top right',
+      placement: 'bottom',
       duration: 2000,
       render: ({id}) => {
         const toastId = 'toast-' + id;
@@ -201,8 +200,6 @@ const DetailBook = () => {
       ? detailBook.volumeInfo?.imageLinks?.thumbnail
       : 'https://plus.unsplash.com/premium_photo-1698084059435-a50ddfd69303?q=80&w=1850&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
   const loading = typeBook === retrieveDetailBook.pending.type;
-
-  console.log(bookReview.length);
 
   if (loading) return <Text>Loading</Text>;
 
