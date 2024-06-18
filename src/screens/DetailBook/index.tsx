@@ -13,26 +13,30 @@ import {
   AvatarImage,
   ModalBackdrop,
   ModalContent,
-  ModalHeader,
-  ModalCloseButton,
   Icon,
   ModalBody,
-  ModalFooter,
   Modal,
-  CloseIcon,
   Textarea,
   TextareaInput,
   useToast,
   Toast,
-  Input,
-  InputField,
+  GripVerticalIcon,
+  Menu,
+  MenuItem,
+  MenuItemLabel,
+  EditIcon,
+  TrashIcon,
+  ButtonIcon,
+  ModalFooter,
+  ModalHeader,
 } from '@gluestack-ui/themed';
 import {Review, RootStackParamList} from '../../types/types';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/useRedux';
 import {
   detailBookSelector,
+  reveiwIdBookSelector,
   typeBookSelector,
   useReviewBookSelector,
 } from '../../redux/book/bookSelector';
@@ -51,7 +55,7 @@ import {
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {retrieveReviewBook} from '../../redux/book/bookSlice';
+import {addReviewId, retrieveReviewBook} from '../../redux/book/bookSlice';
 
 type DetailBooksRouteProp = RouteProp<RootStackParamList, 'DetailBook'>;
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
@@ -80,13 +84,17 @@ const DetailBook = () => {
   const isLogin = useAppSelector(useIsLoginSelector);
   const bookReview = useAppSelector(useReviewBookSelector);
   const typeBook = useAppSelector(typeBookSelector);
+  const reviewBookId = useAppSelector(reveiwIdBookSelector);
 
   const {bookId} = route.params;
   const toast = useToast();
   const navigation = useNavigation<NavigationProp>();
 
   const [showBook, setShowBook] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+
   const refReadBook = React.useRef(null);
+  const refOpenDeleteModal = React.useRef(null);
 
   const isReview = (data: any): data is Review => {
     return (
@@ -194,6 +202,78 @@ const DetailBook = () => {
     });
   };
 
+  const getIdDocumentFromFirestore = useCallback(
+    (id: string) => {
+      try {
+        firestore()
+          .collection('ulasan')
+          .where('id', '==', id)
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(documentSnapshot => {
+              dispatch(addReviewId(documentSnapshot.id));
+            });
+          });
+      } catch (error) {
+        toast.show({
+          placement: 'bottom',
+          duration: 2000,
+          render: ({id}) => {
+            const toastId = 'toast-' + id;
+            return (
+              <Toast nativeID={toastId} action="info" variant="solid">
+                <VStack space="xs">
+                  <ToastTitle>Gagal mengambil id!</ToastTitle>
+                </VStack>
+              </Toast>
+            );
+          },
+        });
+      }
+    },
+    [dispatch],
+  );
+
+  const handleDeleteReview = useCallback(() => {
+    try {
+      firestore()
+        .collection('ulasan')
+        .doc(reviewBookId)
+        .delete()
+        .then(() => {
+          toast.show({
+            placement: 'bottom',
+            duration: 2000,
+            render: ({id}) => {
+              const toastId = 'toast-' + id;
+              return (
+                <Toast nativeID={toastId} action="success" variant="solid">
+                  <VStack space="xs">
+                    <ToastTitle>Berhasil menghapus komentar</ToastTitle>
+                  </VStack>
+                </Toast>
+              );
+            },
+          });
+        });
+    } catch (error) {
+      toast.show({
+        placement: 'bottom',
+        duration: 2000,
+        render: ({id}) => {
+          const toastId = 'toast-' + id;
+          return (
+            <Toast nativeID={toastId} action="error" variant="solid">
+              <VStack space="xs">
+                <ToastTitle>Gagal menghapus komentar</ToastTitle>
+              </VStack>
+            </Toast>
+          );
+        },
+      });
+    }
+  }, [reviewBookId]);
+
   const uriDetailBook =
     detailBook.volumeInfo.imageLinks &&
     detailBook.volumeInfo?.imageLinks?.thumbnail
@@ -204,7 +284,7 @@ const DetailBook = () => {
   if (loading) return <Text>Loading</Text>;
 
   return (
-    <ScrollView>
+    <ScrollView backgroundColor="white">
       <View display="flex" alignItems="center" padding={20}>
         <Image
           alt="title"
@@ -357,6 +437,79 @@ const DetailBook = () => {
                   <Text size="sm" color="black">
                     {book.ulasan}
                   </Text>
+                </VStack>
+
+                <VStack>
+                  <Menu
+                    placement="left bottom"
+                    backgroundColor="$coolGray200"
+                    width={'$full'}
+                    margin={0}
+                    padding={0}
+                    trigger={({...triggerProps}) => {
+                      return (
+                        <Button
+                          {...triggerProps}
+                          w="$1"
+                          backgroundColor="white">
+                          <ButtonIcon as={GripVerticalIcon} color="black" />
+                        </Button>
+                      );
+                    }}>
+                    <MenuItem key="Edit" textValue="Edit">
+                      <Icon as={EditIcon} mr={'$2'} color="green" />
+                      <MenuItemLabel color="green">Edit</MenuItemLabel>
+                    </MenuItem>
+                    <MenuItem
+                      key="Hapus"
+                      textValue="Hapus"
+                      onPress={() => {
+                        setDeleteModal(true);
+                        getIdDocumentFromFirestore(book.id);
+                      }}
+                      ref={refOpenDeleteModal}>
+                      <Icon as={TrashIcon} mr={'$2'} color="red" />
+                      <MenuItemLabel color="red">Hapus</MenuItemLabel>
+                    </MenuItem>
+                  </Menu>
+
+                  <Modal
+                    isOpen={deleteModal}
+                    onClose={() => {
+                      setDeleteModal(false);
+                    }}
+                    finalFocusRef={refOpenDeleteModal}>
+                    <ModalBackdrop />
+                    <ModalContent>
+                      <ModalHeader>
+                        <Heading size="lg">
+                          Yakin ingin menghapus komentar?
+                        </Heading>
+                      </ModalHeader>
+                      <ModalFooter>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          action="secondary"
+                          mr="$3"
+                          onPress={() => {
+                            setDeleteModal(false);
+                          }}>
+                          <ButtonText>Batal</ButtonText>
+                        </Button>
+                        <Button
+                          size="sm"
+                          action="negative"
+                          borderWidth="$0"
+                          onPress={() => {
+                            setDeleteModal(false);
+                            handleDeleteReview();
+                          }}>
+                          <ButtonText>Hapus</ButtonText>
+                        </Button>
+                      </ModalFooter>
+                    </ModalContent>
+                  </Modal>
                 </VStack>
               </Box>
             );
