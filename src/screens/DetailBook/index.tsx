@@ -92,6 +92,7 @@ const DetailBook = () => {
 
   const [showBook, setShowBook] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   const refReadBook = React.useRef(null);
   const refOpenDeleteModal = React.useRef(null);
@@ -274,6 +275,54 @@ const DetailBook = () => {
     }
   }, [reviewBookId]);
 
+  const handleUpdateReview = useCallback(
+    (ulasan: string, updatedAt: string) => {
+      try {
+        firestore()
+          .collection('ulasan')
+          .doc(reviewBookId)
+          .update({
+            ulasan,
+            updatedAt,
+          })
+          .then(() => {
+            toast.show({
+              placement: 'bottom',
+              duration: 2000,
+              render: ({id}) => {
+                const toastId = 'toast-' + id;
+                return (
+                  <Toast nativeID={toastId} action="success" variant="solid">
+                    <VStack space="xs">
+                      <ToastTitle>Berhasil memperbarui komentar</ToastTitle>
+                    </VStack>
+                  </Toast>
+                );
+              },
+            });
+          });
+
+        setIsEdit(false);
+      } catch (error) {
+        toast.show({
+          placement: 'bottom',
+          duration: 2000,
+          render: ({id}) => {
+            const toastId = 'toast-' + id;
+            return (
+              <Toast nativeID={toastId} action="error" variant="solid">
+                <VStack space="xs">
+                  <ToastTitle>Gagal memperbarui komentar</ToastTitle>
+                </VStack>
+              </Toast>
+            );
+          },
+        });
+      }
+    },
+    [reviewBookId],
+  );
+
   const uriDetailBook =
     detailBook.volumeInfo.imageLinks &&
     detailBook.volumeInfo?.imageLinks?.thumbnail
@@ -364,20 +413,22 @@ const DetailBook = () => {
               const date = new Date();
               const id = uuidv4();
 
-              addReviewBook({
-                userName: user.name,
-                bookId: detailBook.id,
-                profilePic: user.photo,
-                id: id,
-                ulasan: values.review,
-                userId: user.id,
-                createdAt: date.toISOString(),
-                updatedAt: date.toISOString(),
-              });
+              isEdit
+                ? handleUpdateReview(values.review, date.toISOString())
+                : addReviewBook({
+                    userName: user.name,
+                    bookId: detailBook.id,
+                    profilePic: user.photo,
+                    id: id,
+                    ulasan: values.review,
+                    userId: user.id,
+                    createdAt: date.toISOString(),
+                    updatedAt: date.toISOString(),
+                  });
 
               resetForm();
             }}>
-            {({handleChange, handleSubmit, values}) => (
+            {({handleChange, handleSubmit, values, setFieldValue}) => (
               <View>
                 <Textarea
                   size="sm"
@@ -386,7 +437,7 @@ const DetailBook = () => {
                   isInvalid={false}
                   isDisabled={false}>
                   <TextareaInput
-                    placeholder="Tuliskan komentar anda..."
+                    placeholder="Ketikkan komentar anda..."
                     onChangeText={handleChange('review')}
                     value={values.review}
                     fontSize={'$sm'}
@@ -394,129 +445,161 @@ const DetailBook = () => {
                   />
                 </Textarea>
 
-                <Button
-                  size="sm"
-                  width={'$1/4'}
-                  action="positive"
-                  marginVertical={10}
-                  isDisabled={values.review.length < 10 ? true : false}
-                  onPress={() =>
-                    isLogin ? handleSubmit() : handleNavigateUserNotLogin()
-                  }>
-                  <ButtonText>Kirim</ButtonText>
-                </Button>
+                <View display="flex" flexDirection="row" gap={4}>
+                  <Button
+                    size="sm"
+                    width={'$1/4'}
+                    action="positive"
+                    marginVertical={10}
+                    isDisabled={values.review.length < 10 ? true : false}
+                    onPress={() =>
+                      isLogin ? handleSubmit() : handleNavigateUserNotLogin()
+                    }>
+                    <ButtonText>{isEdit ? 'Edit' : 'Kirim'}</ButtonText>
+                  </Button>
+
+                  {isEdit && (
+                    <Button
+                      size="sm"
+                      width={'$1/4'}
+                      action="positive"
+                      marginVertical={10}
+                      onPress={() => {
+                        setIsEdit(false);
+                        setFieldValue('review', '');
+                      }}>
+                      <ButtonText>Batal</ButtonText>
+                    </Button>
+                  )}
+                </View>
+
+                {bookReview.length !== 0 ? (
+                  bookReview.map(book => {
+                    return (
+                      <Box
+                        display="flex"
+                        flexDirection="row"
+                        mt={10}
+                        key={book.id}>
+                        <Avatar mr="$3">
+                          <AvatarFallbackText fontFamily="$heading">
+                            Picture
+                          </AvatarFallbackText>
+                          <AvatarImage
+                            alt="gambar"
+                            source={{
+                              uri: book.profilePic
+                                ? book.profilePic
+                                : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+                            }}
+                          />
+                        </Avatar>
+                        <VStack flex={1}>
+                          <Box display="flex">
+                            <Heading size="sm" fontFamily="$heading" mb={1}>
+                              {book.userName}
+                            </Heading>
+                            <Text size="xs">{book.createdAt}</Text>
+                          </Box>
+
+                          <Text size="sm" color="black">
+                            {book.ulasan}
+                          </Text>
+                        </VStack>
+
+                        <VStack>
+                          <Menu
+                            placement="left bottom"
+                            backgroundColor="$coolGray200"
+                            width={'$full'}
+                            margin={0}
+                            padding={0}
+                            trigger={({...triggerProps}) => {
+                              return (
+                                <Button
+                                  {...triggerProps}
+                                  w="$1"
+                                  backgroundColor="white">
+                                  <ButtonIcon
+                                    as={GripVerticalIcon}
+                                    color="black"
+                                  />
+                                </Button>
+                              );
+                            }}>
+                            <MenuItem
+                              key="Edit"
+                              textValue="Edit"
+                              onPress={() => {
+                                getIdDocumentFromFirestore(book.id);
+                                setFieldValue('review', book.ulasan);
+                                setIsEdit(true);
+                              }}>
+                              <Icon as={EditIcon} mr={'$2'} color="green" />
+                              <MenuItemLabel color="green">Edit</MenuItemLabel>
+                            </MenuItem>
+
+                            <MenuItem
+                              key="Hapus"
+                              textValue="Hapus"
+                              onPress={() => {
+                                setDeleteModal(true);
+                                getIdDocumentFromFirestore(book.id);
+                              }}
+                              ref={refOpenDeleteModal}>
+                              <Icon as={TrashIcon} mr={'$2'} color="red" />
+                              <MenuItemLabel color="red">Hapus</MenuItemLabel>
+                            </MenuItem>
+                          </Menu>
+
+                          <Modal
+                            isOpen={deleteModal}
+                            onClose={() => {
+                              setDeleteModal(false);
+                            }}
+                            finalFocusRef={refOpenDeleteModal}>
+                            <ModalBackdrop />
+                            <ModalContent>
+                              <ModalHeader>
+                                <Heading size="lg">
+                                  Yakin ingin menghapus komentar?
+                                </Heading>
+                              </ModalHeader>
+                              <ModalFooter>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  action="secondary"
+                                  mr="$3"
+                                  onPress={() => {
+                                    setDeleteModal(false);
+                                  }}>
+                                  <ButtonText>Batal</ButtonText>
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  action="negative"
+                                  borderWidth="$0"
+                                  onPress={() => {
+                                    setDeleteModal(false);
+                                    handleDeleteReview();
+                                  }}>
+                                  <ButtonText>Hapus</ButtonText>
+                                </Button>
+                              </ModalFooter>
+                            </ModalContent>
+                          </Modal>
+                        </VStack>
+                      </Box>
+                    );
+                  })
+                ) : (
+                  <Text>Tidak ada komentar</Text>
+                )}
               </View>
             )}
           </Formik>
         </View>
-        {bookReview.length !== 0 ? (
-          bookReview.map(book => {
-            return (
-              <Box display="flex" flexDirection="row" mt={10} key={book.id}>
-                <Avatar mr="$3">
-                  <AvatarFallbackText fontFamily="$heading">
-                    Picture
-                  </AvatarFallbackText>
-                  <AvatarImage
-                    alt="gambar"
-                    source={{
-                      uri: book.profilePic
-                        ? book.profilePic
-                        : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
-                    }}
-                  />
-                </Avatar>
-                <VStack flex={1}>
-                  <Box display="flex">
-                    <Heading size="sm" fontFamily="$heading" mb={1}>
-                      {book.userName}
-                    </Heading>
-                    <Text size="xs">{book.createdAt}</Text>
-                  </Box>
-
-                  <Text size="sm" color="black">
-                    {book.ulasan}
-                  </Text>
-                </VStack>
-
-                <VStack>
-                  <Menu
-                    placement="left bottom"
-                    backgroundColor="$coolGray200"
-                    width={'$full'}
-                    margin={0}
-                    padding={0}
-                    trigger={({...triggerProps}) => {
-                      return (
-                        <Button
-                          {...triggerProps}
-                          w="$1"
-                          backgroundColor="white">
-                          <ButtonIcon as={GripVerticalIcon} color="black" />
-                        </Button>
-                      );
-                    }}>
-                    <MenuItem key="Edit" textValue="Edit">
-                      <Icon as={EditIcon} mr={'$2'} color="green" />
-                      <MenuItemLabel color="green">Edit</MenuItemLabel>
-                    </MenuItem>
-                    <MenuItem
-                      key="Hapus"
-                      textValue="Hapus"
-                      onPress={() => {
-                        setDeleteModal(true);
-                        getIdDocumentFromFirestore(book.id);
-                      }}
-                      ref={refOpenDeleteModal}>
-                      <Icon as={TrashIcon} mr={'$2'} color="red" />
-                      <MenuItemLabel color="red">Hapus</MenuItemLabel>
-                    </MenuItem>
-                  </Menu>
-
-                  <Modal
-                    isOpen={deleteModal}
-                    onClose={() => {
-                      setDeleteModal(false);
-                    }}
-                    finalFocusRef={refOpenDeleteModal}>
-                    <ModalBackdrop />
-                    <ModalContent>
-                      <ModalHeader>
-                        <Heading size="lg">
-                          Yakin ingin menghapus komentar?
-                        </Heading>
-                      </ModalHeader>
-                      <ModalFooter>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          action="secondary"
-                          mr="$3"
-                          onPress={() => {
-                            setDeleteModal(false);
-                          }}>
-                          <ButtonText>Batal</ButtonText>
-                        </Button>
-                        <Button
-                          size="sm"
-                          action="negative"
-                          borderWidth="$0"
-                          onPress={() => {
-                            setDeleteModal(false);
-                            handleDeleteReview();
-                          }}>
-                          <ButtonText>Hapus</ButtonText>
-                        </Button>
-                      </ModalFooter>
-                    </ModalContent>
-                  </Modal>
-                </VStack>
-              </Box>
-            );
-          })
-        ) : (
-          <Text>Tidak ada komentar</Text>
-        )}
       </View>
 
       {showBook && (
