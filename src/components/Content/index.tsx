@@ -16,7 +16,10 @@ import {
 import {Formik} from 'formik';
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/useRedux';
-import {searchBooks, useSearchBookType} from '../../redux/book/bookSelector';
+import {
+  searchBookTypeSelector,
+  searchBooksSelector,
+} from '../../redux/book/bookSelector';
 import {retrieveSearchBooks} from '../../redux/book/bookThunk';
 import {BookItem, RootStackParamList} from '../../types/types';
 import {useNavigation} from '@react-navigation/native';
@@ -31,8 +34,8 @@ const Content = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<NavigationProp>();
 
-  const books = useAppSelector(searchBooks);
-  const type = useAppSelector(useSearchBookType);
+  const books = useAppSelector(searchBooksSelector);
+  const type = useAppSelector(searchBookTypeSelector);
 
   useEffect(() => {
     dispatch(retrieveSearchBooks({search: 'programming'}));
