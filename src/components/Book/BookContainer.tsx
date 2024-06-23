@@ -1,7 +1,7 @@
 import Book from './Book';
 import {useAppSelector} from '../../hooks/useRedux';
 import {detailBookSelector} from '../../redux/book/bookSelector';
-import {modifiedName} from '../../../utils/const/const';
+import {modifiedName} from '../../utils/const/const';
 import {BookContainerProps} from './types';
 
 const BookContainer: React.FC<BookContainerProps> = ({

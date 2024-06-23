@@ -43,7 +43,7 @@ const CommentContainer = () => {
   const commentSchema = Yup.object().shape({
     comment: Yup.string()
       .min(10, 'Minimal 10 karakter')
-      .max(200, 'Maximal 100 karakter')
+      .max(200, 'Maksimal 100 karakter')
       .required('Mohon mengisi komentar!'),
   });
 
@@ -76,23 +76,10 @@ const CommentContainer = () => {
           .collection('ulasan')
           .add(review)
           .then(() => {
-            showToast('Komentar Terkirim', 'success');
+            showToast('Komentar terkirim', 'success');
           });
       } catch (error) {
-        toast.show({
-          placement: 'bottom',
-          duration: 2000,
-          render: ({id}) => {
-            const toastId = 'toast-' + id;
-            return (
-              <Toast nativeID={toastId} action="error" variant="solid">
-                <VStack space="xs">
-                  <ToastTitle>Komentar Gagal dikirim </ToastTitle>
-                </VStack>
-              </Toast>
-            );
-          },
-        });
+        showToast('Komentar gagal dikirim', 'error');
       }
     };
 
@@ -105,36 +92,10 @@ const CommentContainer = () => {
           .doc(commentBookId)
           .delete()
           .then(() => {
-            toast.show({
-              placement: 'bottom',
-              duration: 2000,
-              render: ({id}: ToastRenderProps) => {
-                const toastId = 'toast-' + id;
-                return (
-                  <Toast nativeID={toastId} action="success" variant="solid">
-                    <VStack space="xs">
-                      <ToastTitle>Berhasil menghapus komentar</ToastTitle>
-                    </VStack>
-                  </Toast>
-                );
-              },
-            });
+            showToast('Berhasil menghapus komentar', 'success');
           });
       } catch (error) {
-        toast.show({
-          placement: 'bottom',
-          duration: 2000,
-          render: ({id}: ToastRenderProps) => {
-            const toastId = 'toast-' + id;
-            return (
-              <Toast nativeID={toastId} action="error" variant="solid">
-                <VStack space="xs">
-                  <ToastTitle>Gagal menghapus komentar</ToastTitle>
-                </VStack>
-              </Toast>
-            );
-          },
-        });
+        showToast('Gagal menghapus komentar', 'error');
       }
     }, [commentBookId]);
 
@@ -151,38 +112,12 @@ const CommentContainer = () => {
               updatedAt,
             })
             .then(() => {
-              toast.show({
-                placement: 'bottom',
-                duration: 2000,
-                render: ({id}: ToastRenderProps) => {
-                  const toastId = 'toast-' + id;
-                  return (
-                    <Toast nativeID={toastId} action="success" variant="solid">
-                      <VStack space="xs">
-                        <ToastTitle>Berhasil memperbarui komentar</ToastTitle>
-                      </VStack>
-                    </Toast>
-                  );
-                },
-              });
+              showToast('Berhasil memperbarui komentar', 'success');
             });
 
           setIsEdit(false);
         } catch (error) {
-          toast.show({
-            placement: 'bottom',
-            duration: 2000,
-            render: ({id}: ToastRenderProps) => {
-              const toastId = 'toast-' + id;
-              return (
-                <Toast nativeID={toastId} action="error" variant="solid">
-                  <VStack space="xs">
-                    <ToastTitle>Gagal memperbarui komentar</ToastTitle>
-                  </VStack>
-                </Toast>
-              );
-            },
-          });
+          showToast('Gagal memperbarui komentar', 'error');
         }
       },
       [commentBookId],
@@ -203,20 +138,7 @@ const CommentContainer = () => {
               });
             });
         } catch (error) {
-          toast.show({
-            placement: 'bottom',
-            duration: 2000,
-            render: ({id}: ToastRenderProps) => {
-              const toastId = 'toast-' + id;
-              return (
-                <Toast nativeID={toastId} action="info" variant="solid">
-                  <VStack space="xs">
-                    <ToastTitle>Gagal mengambil id!</ToastTitle>
-                  </VStack>
-                </Toast>
-              );
-            },
-          });
+          showToast('Gagal mengambil id!', 'error');
         }
       },
       [dispatch],
