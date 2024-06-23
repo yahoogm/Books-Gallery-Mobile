@@ -11,10 +11,7 @@ import {
 } from '@gluestack-ui/themed';
 import {Button} from 'react-native';
 import {useAppDispatch, useAppSelector} from './src/hooks/useRedux';
-import {
-  useIsLoginSelector,
-  useUserSelector,
-} from './src/redux/user/userSelector';
+import {isLoginSelector, userSelector} from './src/redux/user/userSelector';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {logoutUser} from './src/redux/user/userSlice';
 import {useToast, Toast, VStack, ToastTitle} from '@gluestack-ui/themed';
@@ -23,8 +20,8 @@ const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
   const toast = useToast();
-  const isLogin = useAppSelector(useIsLoginSelector);
-  const user = useAppSelector(useUserSelector);
+  const isLogin = useAppSelector(isLoginSelector);
+  const user = useAppSelector(userSelector);
   const dispatch = useAppDispatch();
 
   const signOut = async () => {
