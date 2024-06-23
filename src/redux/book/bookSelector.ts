@@ -1,9 +1,8 @@
 import {RootState} from '../store';
 
-export const searchBooks = (state: RootState) => state.book.books;
-export const useSearchBookType = (state: RootState) => state.book.type;
+export const searchBooksSelector = (state: RootState) => state.book.books;
+export const searchBookTypeSelector = (state: RootState) => state.book.type;
 export const detailBookSelector = (state: RootState) => state.book.detailBook;
-export const useReviewBookSelector = (state: RootState) =>
-  state.book.reviewBook;
+export const commentBookSelector = (state: RootState) => state.book.commentBook;
 export const typeBookSelector = (state: RootState) => state.book.typeDetailBook;
-export const reveiwIdBookSelector = (state: RootState) => state.book.reviewId;
+export const commentIdBookSelector = (state: RootState) => state.book.commentId;

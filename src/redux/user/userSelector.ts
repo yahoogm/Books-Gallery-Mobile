@@ -1,5 +1,4 @@
 import {RootState} from '../store';
 
-export const useUserSelector = (state: RootState) => state.user.user;
-
-export const useIsLoginSelector = (state: RootState) => state.user.isLogin;
+export const userSelector = (state: RootState) => state.user.user;
+export const isLoginSelector = (state: RootState) => state.user.isLogin;

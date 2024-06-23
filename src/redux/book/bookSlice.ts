@@ -7,7 +7,7 @@ const initialState: BookState = {
     items: [],
   },
 
-  reviewBook: [
+  commentBook: [
     {
       bookId: '',
       createdAt: '',
@@ -39,7 +39,7 @@ const initialState: BookState = {
     },
   },
 
-  reviewId: '',
+  commentId: '',
   type: '',
   typeDetailBook: 'product/retrieveDetailBook/pending',
 };
@@ -62,17 +62,17 @@ export const bookSlice = createSlice({
       };
     },
 
-    retrieveReviewBook: (state, action) => {
+    retrieveCommentBook: (state, action) => {
       return {
         ...state,
-        reviewBook: action.payload,
+        commentBook: action.payload,
       };
     },
 
-    addReviewId: (state, action) => {
+    addCommentId: (state, action) => {
       return {
         ...state,
-        reviewId: action.payload,
+        commentId: action.payload,
       };
     },
   },
@@ -125,6 +125,6 @@ export const bookSlice = createSlice({
 });
 
 const {actions, reducer: bookReducer} = bookSlice;
-export const {addDetailBook, addReadBook, retrieveReviewBook, addReviewId} =
+export const {addDetailBook, addReadBook, retrieveCommentBook, addCommentId} =
   actions;
 export default bookReducer;
