@@ -1,4 +1,4 @@
-type VolumeInfo = {
+export type VolumeInfo = {
   title: string;
   publishedDate: string;
   description: string;
@@ -10,7 +10,7 @@ type VolumeInfo = {
   industryIdentifiers: Array<{identifier: string; type: string}>;
 };
 
-export type Review = {
+export type Comment = {
   bookId: string;
   createdAt: string;
   id: string;
@@ -28,12 +28,12 @@ export type BookItem = {
 
 export type BookState = {
   type: string;
-  reviewId: string;
+  commentId: string;
   detailBook: BookItem;
   books: {
     items: [];
   };
-  reviewBook: Array<Review>;
+  commentBook: Array<Comment>;
   typeDetailBook: string;
 };
 
