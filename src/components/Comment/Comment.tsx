@@ -151,46 +151,51 @@ const Comment: React.FC<CommentProps> = ({
                     </VStack>
 
                     <VStack>
-                      <Menu
-                        placement="left bottom"
-                        backgroundColor="$coolGray200"
-                        width={'$full'}
-                        margin={0}
-                        padding={0}
-                        trigger={({...triggerProps}) => {
-                          return (
-                            <Button
-                              {...triggerProps}
-                              w="$1"
-                              backgroundColor="white">
-                              <ButtonIcon as={GripVerticalIcon} color="black" />
-                            </Button>
-                          );
-                        }}>
-                        <MenuItem
-                          key="Edit"
-                          textValue="Edit"
-                          onPress={() => {
-                            getIdDocumentFromFirestore(book.id);
-                            setFieldValue('review', book.ulasan);
-                            setIsEdit(true);
+                      {user.id === book.userId && (
+                        <Menu
+                          placement="left bottom"
+                          backgroundColor="$coolGray200"
+                          width={'$full'}
+                          margin={0}
+                          padding={0}
+                          trigger={({...triggerProps}) => {
+                            return (
+                              <Button
+                                {...triggerProps}
+                                w="$1"
+                                backgroundColor="white">
+                                <ButtonIcon
+                                  as={GripVerticalIcon}
+                                  color="black"
+                                />
+                              </Button>
+                            );
                           }}>
-                          <Icon as={EditIcon} mr={'$2'} color="green" />
-                          <MenuItemLabel color="green">Edit</MenuItemLabel>
-                        </MenuItem>
+                          <MenuItem
+                            key="Edit"
+                            textValue="Edit"
+                            onPress={() => {
+                              getIdDocumentFromFirestore(book.id);
+                              setFieldValue('review', book.ulasan);
+                              setIsEdit(true);
+                            }}>
+                            <Icon as={EditIcon} mr={'$2'} color="green" />
+                            <MenuItemLabel color="green">Edit</MenuItemLabel>
+                          </MenuItem>
 
-                        <MenuItem
-                          key="Hapus"
-                          textValue="Hapus"
-                          onPress={() => {
-                            setDeleteModal(true);
-                            getIdDocumentFromFirestore(book.id);
-                          }}
-                          ref={refOpenDeleteModal}>
-                          <Icon as={TrashIcon} mr={'$2'} color="red" />
-                          <MenuItemLabel color="red">Hapus</MenuItemLabel>
-                        </MenuItem>
-                      </Menu>
+                          <MenuItem
+                            key="Hapus"
+                            textValue="Hapus"
+                            onPress={() => {
+                              setDeleteModal(true);
+                              getIdDocumentFromFirestore(book.id);
+                            }}
+                            ref={refOpenDeleteModal}>
+                            <Icon as={TrashIcon} mr={'$2'} color="red" />
+                            <MenuItemLabel color="red">Hapus</MenuItemLabel>
+                          </MenuItem>
+                        </Menu>
+                      )}
 
                       <Modal
                         isOpen={deleteModal}
