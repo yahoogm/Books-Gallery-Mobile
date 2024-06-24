@@ -39,7 +39,7 @@ const GoogleLogin = () => {
       dispatch(loginUser(user));
 
       toast.show({
-        placement: 'top right',
+        placement: 'bottom',
         duration: 2000,
         render: ({id}) => {
           const toastId = 'toast-' + id;
