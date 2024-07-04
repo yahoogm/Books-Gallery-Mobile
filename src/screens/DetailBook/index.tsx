@@ -1,4 +1,4 @@
-import {ScrollView, Text, View} from '@gluestack-ui/themed';
+import {ScrollView, Spinner, View} from '@gluestack-ui/themed';
 import {Comment, RootStackParamList} from '../../types/types';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
@@ -11,9 +11,11 @@ import {retrieveDetailBook} from '../../redux/book/bookThunk';
 import React from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {retrieveCommentBook} from '../../redux/book/bookSlice';
-import BookContainer from '../../components/Book/BookContainer';
-import CommentContainer from '../../components/Comment/CommentContainer';
-import ReadBookContainer from '../../components/ReadBook/ReadBookContainer';
+import {
+  BookContainer,
+  CommentContainer,
+  ReadBookContainer,
+} from '../../components';
 
 type DetailBooksRouteProp = RouteProp<RootStackParamList, 'DetailBook'>;
 
@@ -67,7 +69,12 @@ const DetailBook = () => {
 
   const loading = typeBook === retrieveDetailBook.pending.type;
 
-  if (loading) return <Text>Loading</Text>;
+  if (loading)
+    return (
+      <View height={'$full'}>
+        <Spinner size={'large'} m={'auto'} />
+      </View>
+    );
 
   return (
     <ScrollView backgroundColor="white">
