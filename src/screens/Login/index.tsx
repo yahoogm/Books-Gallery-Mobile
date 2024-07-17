@@ -1,5 +1,5 @@
-import {View} from '@gluestack-ui/themed';
 import {GoogleLogin} from '../../components';
+import {View} from '@gluestack-ui/themed';
 
 const Login = () => {
   return (

@@ -1,6 +1,7 @@
-import {Button, ButtonText, View, Image} from '@gluestack-ui/themed';
+import React from 'react';
 import {BookProps} from './types';
 import BookItem from '../BookItem/BookItem';
+import {Button, ButtonText, View, Image} from '@gluestack-ui/themed';
 
 const Book: React.FC<BookProps> = ({
   uriDetailBook,
@@ -77,54 +78,6 @@ const Book: React.FC<BookProps> = ({
           }
           label="Description"
         />
-        {/* <View alignItems="center">
-          <Heading size="md">Author:</Heading>
-          <Text>
-            {authorsName !== null ? authorsName : 'Penulis tidak diketahui'}
-          </Text>
-        </View>
-        <View alignItems="center">
-          <Heading size="md">Publisher:</Heading>
-          <Text>
-            {detailBook.volumeInfo.publisher !== null || undefined
-              ? detailBook.volumeInfo.publisher
-              : 'Penerbit tidak diketahui'}
-          </Text>
-        </View>
-        <View alignItems="center">
-          <Heading size="md">Published Date:</Heading>
-          <Text>
-            {detailBook.volumeInfo.publishedDate !== null || undefined
-              ? detailBook.volumeInfo.publishedDate
-              : 'Tanggal publikasi tidak diketahui'}
-          </Text>
-        </View>
-        <View alignItems="center">
-          <Heading size="md">Page Count:</Heading>
-          <Text>
-            {detailBook.volumeInfo.pageCount !== null || undefined
-              ? detailBook.volumeInfo.pageCount
-              : 'Jumlah halaman tidak diketahui'}
-          </Text>
-        </View>
-        <View alignItems="center">
-          <Heading size="md">Category:</Heading>
-          <Text>
-            {(categories !== undefined && categories.length !== 0) ||
-            null ||
-            undefined
-              ? categories
-              : 'Kategori tidak diketahui'}
-          </Text>
-        </View>
-        <View alignItems="center">
-          <Heading size="md">Description:</Heading>
-          <Text>
-            {detailBook.volumeInfo.description !== null || undefined
-              ? detailBook.volumeInfo.description
-              : 'Deksripsi tidak diketahui'}
-          </Text>
-        </View> */}
       </View>
     </View>
   );
