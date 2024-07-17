@@ -1,9 +1,17 @@
-export const modifiedName = (names: string[]) => {
-  const modifiedName = names?.map((name, idx) => {
+export const modifiedName = (names: string[] | undefined) => {
+  if (!Array.isArray(names)) {
+    return [''];
+  }
+
+  if (names == undefined) {
+    return [''];
+  }
+
+  const DescribeNames = names?.map((name, idx) => {
     if (idx !== names.length - 1) {
       return name + ',' + ' ';
     }
     return name;
   });
-  return modifiedName;
+  return DescribeNames;
 };
