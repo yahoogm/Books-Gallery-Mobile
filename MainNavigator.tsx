@@ -14,11 +14,6 @@ import {isLoginSelector, userSelector} from './src/redux/user/userSelector';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {logoutUser} from './src/redux/user/userSlice';
 import {useToast, Toast, VStack, ToastTitle} from '@gluestack-ui/themed';
-import {Provider} from 'react-redux';
-import {Store} from './src/redux/store';
-import {GluestackUIProvider} from '@gluestack-ui/themed';
-import {config} from '@gluestack-ui/config';
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
@@ -64,60 +59,54 @@ const MainNavigator = () => {
     }
   };
   return (
-    <Provider store={Store}>
-      <GluestackUIProvider config={config}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Galeri Buku">
-            <Stack.Screen
-              name="Galeri Buku"
-              component={HomeScreen}
-              options={({navigation}) => ({
-                headerTitle: 'Galeri Buku',
-                headerRight: () =>
-                  isLogin ? (
-                    <Menu
-                      placement="bottom right"
-                      trigger={({...triggerProps}) => {
-                        return (
-                          <ButtonGluestack {...triggerProps}>
-                            <ButtonText>
-                              {user.name !== null || undefined
-                                ? user.name
-                                : 'no name'}
-                            </ButtonText>
-                          </ButtonGluestack>
-                        );
-                      }}>
-                      <MenuItem
-                        key="Logout"
-                        textValue="Logout"
-                        onPress={() => signOut()}>
-                        <Icon
-                          as={ExternalLinkIcon}
-                          w="$5"
-                          h="$5"
-                          color="red"
-                          marginRight={6}
-                        />
-                        <MenuItemLabel size="md" color="red" bold={true}>
-                          Logout
-                        </MenuItemLabel>
-                      </MenuItem>
-                    </Menu>
-                  ) : (
-                    <Button
-                      title="Masuk"
-                      onPress={() => navigation.navigate('Login')}
-                    />
-                  ),
-              })}
-            />
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="DetailBook" component={DetailBookScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </GluestackUIProvider>
-    </Provider>
+    <Stack.Navigator initialRouteName="Galeri Buku">
+      <Stack.Screen
+        name="Galeri Buku"
+        component={HomeScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Galeri Buku',
+          headerRight: () =>
+            isLogin ? (
+              <Menu
+                placement="bottom right"
+                trigger={({...triggerProps}) => {
+                  return (
+                    <ButtonGluestack {...triggerProps}>
+                      <ButtonText>
+                        {user.name !== null || undefined
+                          ? user.name
+                          : 'no name'}
+                      </ButtonText>
+                    </ButtonGluestack>
+                  );
+                }}>
+                <MenuItem
+                  key="Logout"
+                  textValue="Logout"
+                  onPress={() => signOut()}>
+                  <Icon
+                    as={ExternalLinkIcon}
+                    w="$5"
+                    h="$5"
+                    color="red"
+                    marginRight={6}
+                  />
+                  <MenuItemLabel size="md" color="red" bold={true}>
+                    Logout
+                  </MenuItemLabel>
+                </MenuItem>
+              </Menu>
+            ) : (
+              <Button
+                title="Masuk"
+                onPress={() => navigation.navigate('Login')}
+              />
+            ),
+        })}
+      />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="DetailBook" component={DetailBookScreen} />
+    </Stack.Navigator>
   );
 };
 
