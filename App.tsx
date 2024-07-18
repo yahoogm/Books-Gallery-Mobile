@@ -1,5 +1,4 @@
 import React from 'react';
-
 import MainNavigator from './MainNavigator';
 import {Provider} from 'react-redux';
 import {Store} from './src/redux/store';

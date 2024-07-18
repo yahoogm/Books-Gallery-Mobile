@@ -1,8 +1,6 @@
 import {API_KEY, API_URL} from '@env';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
-import firestore from '@react-native-firebase/firestore';
-import {addReviewValues} from '../../types/types';
 
 type Params = {
   search?: string;
@@ -15,6 +13,7 @@ export const retrieveSearchBooks = createAsyncThunk(
     const res = await axios.get(
       `${API_URL}/volumes?q=intitle:${param.search}&key=${API_KEY}`,
     );
+
     return res.data;
   },
 );

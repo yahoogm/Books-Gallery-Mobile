@@ -8,6 +8,6 @@ module.exports = {
         moduleName: '@env',
         path: '.env',
       },
-         ],
+    ],
   ],
 };
