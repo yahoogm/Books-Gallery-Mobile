@@ -195,8 +195,7 @@ exports[`BookComponent renders corretly when given props 1`] = `
           }
         }
       >
-        Author
-        :
+        Author:
       </Text>
       <Text
         data-style=""
@@ -252,8 +251,7 @@ exports[`BookComponent renders corretly when given props 1`] = `
           }
         }
       >
-        Publisher
-        :
+        Publisher:
       </Text>
       <Text
         data-style=""
@@ -308,8 +306,7 @@ exports[`BookComponent renders corretly when given props 1`] = `
           }
         }
       >
-        Published Date
-        :
+        Published Date:
       </Text>
       <Text
         data-style=""
@@ -364,8 +361,7 @@ exports[`BookComponent renders corretly when given props 1`] = `
           }
         }
       >
-        Page Count
-        :
+        Page Count:
       </Text>
       <Text
         data-style=""
@@ -420,8 +416,7 @@ exports[`BookComponent renders corretly when given props 1`] = `
           }
         }
       >
-        Category
-        :
+        Category:
       </Text>
       <Text
         data-style=""
@@ -477,8 +472,7 @@ exports[`BookComponent renders corretly when given props 1`] = `
           }
         }
       >
-        Description
-        :
+        Description:
       </Text>
       <Text
         data-style=""
