@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookItem component match snapshot with number detail book 1`] = `
+<View
+  data-style=""
+  dataSet={
+    {
+      "style": "",
+    }
+  }
+  style={
+    [
+      undefined,
+      {},
+      {
+        "alignItems": "center",
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    accessibilityRole="header"
+    data-style=""
+    dataSet={
+      {
+        "style": "",
+      }
+    }
+    size="md"
+    style={
+      {
+        "fontSize": 32,
+        "fontWeight": "bold",
+        "marginVertical": 42.56,
+      }
+    }
+  >
+    Page Count:
+  </Text>
+  <Text
+    data-style=""
+    dataSet={
+      {
+        "style": "",
+      }
+    }
+    style={
+      [
+        undefined,
+        {},
+        undefined,
+      ]
+    }
+  >
+    123456
+  </Text>
+</View>
+`;
+
+exports[`BookItem component match snapshot with string detail book 1`] = `
+<View
+  data-style=""
+  dataSet={
+    {
+      "style": "",
+    }
+  }
+  style={
+    [
+      undefined,
+      {},
+      {
+        "alignItems": "center",
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    accessibilityRole="header"
+    data-style=""
+    dataSet={
+      {
+        "style": "",
+      }
+    }
+    size="md"
+    style={
+      {
+        "fontSize": 32,
+        "fontWeight": "bold",
+        "marginVertical": 42.56,
+      }
+    }
+  >
+    Description:
+  </Text>
+  <Text
+    data-style=""
+    dataSet={
+      {
+        "style": "",
+      }
+    }
+    style={
+      [
+        undefined,
+        {},
+        undefined,
+      ]
+    }
+  >
+    this book is very nice
+  </Text>
+</View>
+`;
+
+exports[`BookItem component match snapshot with string in array detail book 1`] = `
+<View
+  data-style=""
+  dataSet={
+    {
+      "style": "",
+    }
+  }
+  style={
+    [
+      undefined,
+      {},
+      {
+        "alignItems": "center",
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    accessibilityRole="header"
+    data-style=""
+    dataSet={
+      {
+        "style": "",
+      }
+    }
+    size="md"
+    style={
+      {
+        "fontSize": 32,
+        "fontWeight": "bold",
+        "marginVertical": 42.56,
+      }
+    }
+  >
+    Publisher:
+  </Text>
+  <Text
+    data-style=""
+    dataSet={
+      {
+        "style": "",
+      }
+    }
+    style={
+      [
+        undefined,
+        {},
+        undefined,
+      ]
+    }
+  >
+    budi
+    tono
+  </Text>
+</View>
+`;
