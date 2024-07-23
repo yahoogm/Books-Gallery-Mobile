@@ -6,8 +6,8 @@ type DetailBookType = {
 
 export type BookProps = {
   uriDetailBook: string;
-  authorsName: string[];
-  categories: string[];
+  authorsName: string[] | string;
+  categories: string[] | string;
   detailBook: DetailBookType;
   setShowBook: React.Dispatch<React.SetStateAction<boolean>>;
   refReadBook: React.RefObject<any>;
