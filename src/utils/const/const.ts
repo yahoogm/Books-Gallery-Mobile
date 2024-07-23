@@ -1,17 +1,17 @@
 export const modifiedName = (names: string[] | undefined) => {
-  if (!Array.isArray(names)) {
-    return [''];
+  if (!Array.isArray(names) || names.length === 0) {
+    return '';
   }
 
   if (names == undefined) {
-    return [''];
+    return '';
   }
 
-  const DescribeNames = names?.map((name, idx) => {
-    if (idx !== names.length - 1) {
-      return name + ',' + ' ';
-    }
-    return name;
-  });
-  return DescribeNames;
+  const nonEmptyNames = names.filter(name => name.trim() !== '');
+
+  if (nonEmptyNames.length === 0) {
+    return '';
+  }
+
+  return nonEmptyNames.join(', ');
 };
