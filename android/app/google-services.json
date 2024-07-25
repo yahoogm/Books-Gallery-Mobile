@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "185717950311-6rvhj50dsmu57ih28udu967mpgkj68p8.apps.googleusercontent.com",
+          "client_id": "185717950311-nne1ffv0rsdg8e61tv2vk1bt0stgtdb2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.bukugaleri",
-            "certificate_hash": "8e2139252fa368be138c74ac4130f5b84dd896c0"
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "185717950311-trsn1gq5tq4l3cgknf46oife4cot19r1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bukugaleri",
+            "certificate_hash": "51632132e4e44e58813ce961f6317a20251a1207"
           }
         },
         {
@@ -36,7 +44,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "185717950311-6cnp8hccu3o9co6avgcjktpmk2bim80r.apps.googleusercontent.com",
+              "client_id": "185717950311-jcp6mou78s5vn0g5snvbakpecv0albfu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
