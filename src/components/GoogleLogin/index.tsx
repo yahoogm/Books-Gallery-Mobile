@@ -14,6 +14,7 @@ import auth from '@react-native-firebase/auth';
 import {useAppDispatch} from '../../hooks/useRedux';
 import {loginUser} from '../../redux/user/userSlice';
 import {useNavigation} from '@react-navigation/native';
+import Config from 'react-native-config';
 
 const GoogleLogin = () => {
   const dispatch = useAppDispatch();
@@ -23,8 +24,8 @@ const GoogleLogin = () => {
   const signIn = async () => {
     try {
       GoogleSignin.configure({
-        webClientId:
-          '185717950311-jcp6mou78s5vn0g5snvbakpecv0albfu.apps.googleusercontent.com',
+        offlineAccess: true,
+        webClientId: Config.WEB_API_KEY,
       });
 
       await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
