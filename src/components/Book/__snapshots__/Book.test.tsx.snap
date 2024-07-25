@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BookComponent renders corretly when given props 1`] = `
+exports[`BookComponent match snapshot when given props 1`] = `
 <View
   data-style=""
   dataSet={

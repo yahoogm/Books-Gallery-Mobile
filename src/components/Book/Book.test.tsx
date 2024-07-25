@@ -2,6 +2,8 @@ import React, {createRef} from 'react';
 import renderer from 'react-test-renderer';
 import {Button} from '@gluestack-ui/themed';
 import Book from './Book';
+import {BookProps} from './types';
+import {modifiedName} from '../../utils/const/const';
 
 const mockDetailBook = {
   volumeInfo: {
@@ -24,43 +26,70 @@ const mockDetailBook = {
 };
 
 describe('BookComponent', () => {
-  it('renders corretly when given props', () => {
+  const rendererComponent = (props: BookProps) =>
+    renderer.create(<Book {...props} />);
+
+  // snapshot test
+  it('match snapshot when given props', () => {
     const mockSetShowBook = jest.fn();
     const refReadBook = createRef<any>();
-    const tree = renderer
-      .create(
-        <Book
-          authorsName={['budiono siregar', 'ucup']}
-          categories={['buku', 'catatan']}
-          detailBook={mockDetailBook}
-          refReadBook={refReadBook}
-          setShowBook={mockSetShowBook}
-          uriDetailBook="https://google.com/test"
-        />,
-      )
-      .toJSON();
+    const props = {
+      authorsName: ['budiono siregar', 'ucup'],
+      categories: ['buku', 'catatan'],
+      detailBook: mockDetailBook,
+      refReadBook: refReadBook,
+      setShowBook: mockSetShowBook,
+      uriDetailBook: 'https://google.com/test',
+    };
+
+    const tree = rendererComponent(props).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
+  // assertion test
   it('calls setShowBook when button pressed', () => {
     const mockSetShowBook = jest.fn();
     const refReadBook = createRef<any>();
 
-    const testRenderer = renderer.create(
-      <Book
-        authorsName={['budiono siregar', 'ucup']}
-        categories={['buku', 'catatan']}
-        detailBook={mockDetailBook}
-        refReadBook={refReadBook}
-        setShowBook={mockSetShowBook}
-        uriDetailBook="https://google.com/test"
-      />,
-    );
-    const testInstance = testRenderer.root;
+    const props = {
+      authorsName: ['budiono siregar', 'ucup'],
+      categories: ['buku', 'catatan'],
+      detailBook: mockDetailBook,
+      refReadBook: refReadBook,
+      setShowBook: mockSetShowBook,
+      uriDetailBook: 'https://google.com/test',
+    };
+
+    const tree = rendererComponent(props);
+    const testInstance = tree.root;
     const button = testInstance.findByType(Button);
     button.props.onPress();
 
     expect(mockSetShowBook).toHaveBeenCalledWith(true);
     expect(refReadBook.current).toBeTruthy();
+  });
+
+  it('renders correctry when given props', () => {
+    const mockSetShowBook = jest.fn();
+    const refReadBook = createRef<any>();
+    const names = modifiedName(['budiono siregar', 'ucup']);
+    const categories = modifiedName(['buku', 'catatan']);
+
+    const props = {
+      authorsName: names,
+      categories: categories,
+      detailBook: mockDetailBook,
+      refReadBook: refReadBook,
+      setShowBook: mockSetShowBook,
+      uriDetailBook: 'https://google.com/test',
+    };
+
+    const tree = rendererComponent(props);
+    const instance = tree.root;
+
+    expect(
+      instance.findByProps({children: 'budiono siregar, ucup'}),
+    ).toBeTruthy();
+    expect(instance.findByProps({children: 'buku, catatan'})).toBeTruthy();
   });
 });
