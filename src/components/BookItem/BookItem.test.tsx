@@ -1,11 +1,11 @@
 import BookItem from './BookItem';
-import renderer from 'react-test-renderer';
 import {BookItemProps} from './types';
 import {modifiedName} from '../../utils/const/const';
+import {render} from '@testing-library/react-native';
 
 describe('BookItem component', () => {
   const rendererComponent = (props: BookItemProps) =>
-    renderer.create(<BookItem {...props} />);
+    render(<BookItem {...props} />);
 
   //   snapshoot test
   it('match snapshot with string detail book', () => {

@@ -1,5 +1,5 @@
 import React, {createRef} from 'react';
-import renderer from 'react-test-renderer';
+import {render} from '@testing-library/react-native';
 import {Button} from '@gluestack-ui/themed';
 import Book from './Book';
 import {BookProps} from './types';
@@ -26,8 +26,7 @@ const mockDetailBook = {
 };
 
 describe('BookComponent', () => {
-  const rendererComponent = (props: BookProps) =>
-    renderer.create(<Book {...props} />);
+  const rendererComponent = (props: BookProps) => render(<Book {...props} />);
 
   // snapshot test
   it('match snapshot when given props', () => {
