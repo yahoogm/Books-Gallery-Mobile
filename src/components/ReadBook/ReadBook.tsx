@@ -20,6 +20,7 @@ const ReadBook: React.FC<ReadBookProps> = ({
         size="lg"
         padding={0}
         isOpen={showBook}
+        testID="modalEmbeddedBook"
         onClose={() => {
           setShowBook(false);
         }}

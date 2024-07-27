@@ -1,5 +1,5 @@
 import Comment from './Comment';
-import {VStack, Toast, ToastTitle, useToast} from '@gluestack-ui/themed';
+import {useToast} from '@gluestack-ui/themed';
 import {useCallback, useState, useRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {
