@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Read Book Container match snapshot when renders 1`] = `
+<RCTScrollView
+  data-style=""
+  dataSet={
+    {
+      "style": "",
+    }
+  }
+  style={
+    [
+      undefined,
+      {},
+      undefined,
+    ]
+  }
+>
+  <View />
+</RCTScrollView>
+`;
