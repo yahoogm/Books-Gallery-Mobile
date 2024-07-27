@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toast Alert match snapshot when given props 1`] = `
+<View
+  action="attention"
+  data-style=""
+  dataSet={
+    {
+      "style": "",
+    }
+  }
+  nativeID="1234"
+  style={
+    [
+      undefined,
+      {},
+      undefined,
+    ]
+  }
+  variant="solid"
+>
+  <View
+    data-style=""
+    dataSet={
+      {
+        "style": "",
+      }
+    }
+    space="xs"
+    style={
+      [
+        undefined,
+        {},
+        undefined,
+      ]
+    }
+  >
+    <Text
+      aria-atomic="true"
+      aria-live="assertive"
+      data-style=""
+      dataSet={
+        {
+          "style": "",
+        }
+      }
+      role="alert"
+      style={
+        [
+          undefined,
+          {},
+          undefined,
+          {},
+          undefined,
+        ]
+      }
+    >
+      testing
+    </Text>
+  </View>
+</View>
+`;
