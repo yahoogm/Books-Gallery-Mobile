@@ -1,6 +1,6 @@
-import BookItem from './BookItem';
-import {BookItemProps} from './types';
-import {modifiedName} from '../../utils/const/const';
+import BookItem from '../BookItem';
+import {BookItemProps} from '../types';
+import {modifiedName} from '../../../utils/const/const';
 import {render} from '@testing-library/react-native';
 
 describe('BookItem component', () => {

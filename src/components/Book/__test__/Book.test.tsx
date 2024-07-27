@@ -1,9 +1,9 @@
 import React, {createRef} from 'react';
 import {render} from '@testing-library/react-native';
 import {Button} from '@gluestack-ui/themed';
-import Book from './Book';
-import {BookProps} from './types';
-import {modifiedName} from '../../utils/const/const';
+import Book from '../Book';
+import {BookProps} from '../types';
+import {modifiedName} from '../../../utils/const/const';
 
 const mockDetailBook = {
   volumeInfo: {

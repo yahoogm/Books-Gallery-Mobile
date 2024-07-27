@@ -1,8 +1,8 @@
 import React, {createRef} from 'react';
 import {render} from '@testing-library/react-native';
-import BookContainer from './BookContainer';
+import BookContainer from '../BookContainer';
 import {Provider} from 'react-redux';
-import {Store} from '../../redux/store';
+import {Store} from '../../../redux/store';
 
 describe('BookContainerComponent', () => {
   it('renders corretly when given props', () => {
