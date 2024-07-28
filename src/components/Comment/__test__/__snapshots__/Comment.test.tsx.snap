@@ -442,6 +442,7 @@ exports[`Comment match snapshot when renders and given props 1`] = `
           "mt": 10,
         }
       }
+      testID="tesCommentBookContainer"
     >
       <View
         data-style=""

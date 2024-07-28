@@ -405,4 +405,241 @@ describe('Comment', () => {
 
     expect(button.props.children).toBe('Edit');
   });
+
+  it('should render component button when props isEdit true', () => {
+    const userItem = {
+      email: 'testing@gmail.com',
+      familyName: 'test',
+      givenName: 'ing',
+      id: '12345',
+      name: 'testing',
+      photo: 'https://google.com',
+    };
+    const volumenInfo = {
+      title: 'testing',
+      publishedDate: 'testing',
+      description: 'testing',
+      authors: ['testing', 'testing'],
+      publisher: 'testing',
+      pageCount: 100,
+      imageLinks: {
+        smallThumbnail: 'https://google.com',
+        thumbnail: 'https://google.com',
+        large: 'https://google.com',
+      },
+      categories: ['testing', 'testing'],
+      industryIdentifiers: [{identifier: 'testing', type: 'testing'}],
+    };
+    const bookItem = {
+      id: '123456',
+      volumeInfo: volumenInfo,
+    };
+
+    const comment = {
+      bookId: 'testing',
+      createdAt: 'testing',
+      id: 'testing',
+      profilePic: 'https://google.com',
+      ulasan: 'testing',
+      updatedAt: 'testing',
+      userId: 'testing',
+      userName: 'testing',
+    };
+
+    const props = {
+      refOpenDeleteModal: refOpenDeleteModal,
+      deleteModal: false,
+      setDeleteModal: mockSetDeleteModal,
+      handleButton: mockHandleButton,
+      isEdit: true,
+      setIsEdit: mockSetIsEdit,
+      initialValues: {comment: 'testing'},
+      isLogin: false,
+      user: userItem,
+      detailBook: bookItem,
+      commentBook: [comment],
+    };
+
+    const tree = renderComponent(props);
+    const cancelButton = tree.getByTestId('testCancelEditButton');
+    expect(cancelButton).toBeDefined();
+  });
+
+  it('should not render component button when props isEdit false', () => {
+    const userItem = {
+      email: 'testing@gmail.com',
+      familyName: 'test',
+      givenName: 'ing',
+      id: '12345',
+      name: 'testing',
+      photo: 'https://google.com',
+    };
+    const volumenInfo = {
+      title: 'testing',
+      publishedDate: 'testing',
+      description: 'testing',
+      authors: ['testing', 'testing'],
+      publisher: 'testing',
+      pageCount: 100,
+      imageLinks: {
+        smallThumbnail: 'https://google.com',
+        thumbnail: 'https://google.com',
+        large: 'https://google.com',
+      },
+      categories: ['testing', 'testing'],
+      industryIdentifiers: [{identifier: 'testing', type: 'testing'}],
+    };
+    const bookItem = {
+      id: '123456',
+      volumeInfo: volumenInfo,
+    };
+
+    const comment = {
+      bookId: 'testing',
+      createdAt: 'testing',
+      id: 'testing',
+      profilePic: 'https://google.com',
+      ulasan: 'testing',
+      updatedAt: 'testing',
+      userId: 'testing',
+      userName: 'testing',
+    };
+
+    const props = {
+      refOpenDeleteModal: refOpenDeleteModal,
+      deleteModal: false,
+      setDeleteModal: mockSetDeleteModal,
+      handleButton: mockHandleButton,
+      isEdit: false,
+      setIsEdit: mockSetIsEdit,
+      initialValues: {comment: 'testing'},
+      isLogin: false,
+      user: userItem,
+      detailBook: bookItem,
+      commentBook: [comment],
+    };
+
+    const tree = renderComponent(props);
+    const cancelButton = tree.queryByTestId('testCancelEditButton');
+    expect(cancelButton).toBeNull();
+  });
+
+  it('should call setIsEdit when button pressed', () => {
+    const userItem = {
+      email: 'testing@gmail.com',
+      familyName: 'test',
+      givenName: 'ing',
+      id: '12345',
+      name: 'testing',
+      photo: 'https://google.com',
+    };
+    const volumenInfo = {
+      title: 'testing',
+      publishedDate: 'testing',
+      description: 'testing',
+      authors: ['testing', 'testing'],
+      publisher: 'testing',
+      pageCount: 100,
+      imageLinks: {
+        smallThumbnail: 'https://google.com',
+        thumbnail: 'https://google.com',
+        large: 'https://google.com',
+      },
+      categories: ['testing', 'testing'],
+      industryIdentifiers: [{identifier: 'testing', type: 'testing'}],
+    };
+    const bookItem = {
+      id: '123456',
+      volumeInfo: volumenInfo,
+    };
+
+    const comment = {
+      bookId: 'testing',
+      createdAt: 'testing',
+      id: 'testing',
+      profilePic: 'https://google.com',
+      ulasan: 'testing',
+      updatedAt: 'testing',
+      userId: 'testing',
+      userName: 'testing',
+    };
+
+    const props = {
+      refOpenDeleteModal: refOpenDeleteModal,
+      deleteModal: false,
+      setDeleteModal: mockSetDeleteModal,
+      handleButton: mockHandleButton,
+      isEdit: true,
+      setIsEdit: mockSetIsEdit,
+      initialValues: {comment: 'testing'},
+      isLogin: true,
+      user: userItem,
+      detailBook: bookItem,
+      commentBook: [comment],
+    };
+
+    const tree = renderComponent(props);
+    const cancelButton = tree.getByTestId('testCancelEditButton');
+    fireEvent.press(cancelButton);
+    expect(props.setIsEdit).toHaveBeenCalledWith(false);
+  });
+
+  it('should render component comment when comment book length !== 0', () => {
+    const userItem = {
+      email: 'testing@gmail.com',
+      familyName: 'test',
+      givenName: 'ing',
+      id: '12345',
+      name: 'testing',
+      photo: 'https://google.com',
+    };
+    const volumenInfo = {
+      title: 'testing',
+      publishedDate: 'testing',
+      description: 'testing',
+      authors: ['testing', 'testing'],
+      publisher: 'testing',
+      pageCount: 100,
+      imageLinks: {
+        smallThumbnail: 'https://google.com',
+        thumbnail: 'https://google.com',
+        large: 'https://google.com',
+      },
+      categories: ['testing', 'testing'],
+      industryIdentifiers: [{identifier: 'testing', type: 'testing'}],
+    };
+    const bookItem = {
+      id: '123456',
+      volumeInfo: volumenInfo,
+    };
+
+    const comment = {
+      bookId: 'testing',
+      createdAt: 'testing',
+      id: 'testing',
+      profilePic: 'https://google.com',
+      ulasan: 'testing',
+      updatedAt: 'testing',
+      userId: 'testing',
+      userName: 'testing',
+    };
+
+    const props = {
+      refOpenDeleteModal: refOpenDeleteModal,
+      deleteModal: false,
+      setDeleteModal: mockSetDeleteModal,
+      handleButton: mockHandleButton,
+      isEdit: true,
+      setIsEdit: mockSetIsEdit,
+      initialValues: {comment: 'testing'},
+      isLogin: true,
+      user: userItem,
+      detailBook: bookItem,
+      commentBook: [comment],
+    };
+
+    const tree = renderComponent(props);
+    const commentContainer = tree.queryByTestId('tesCommentBookContainer');
+    expect(commentContainer).toBeDefined();
+  });
 });

@@ -122,6 +122,7 @@ const Comment: React.FC<CommentProps> = ({
                   width={'$1/4'}
                   action="positive"
                   marginVertical={10}
+                  testID="testCancelEditButton"
                   onPress={() => {
                     setIsEdit(false);
                     setFieldValue('comment', '');
@@ -134,7 +135,12 @@ const Comment: React.FC<CommentProps> = ({
             {commentBook.length !== 0 ? (
               commentBook.map(book => {
                 return (
-                  <Box display="flex" flexDirection="row" mt={10} key={book.id}>
+                  <Box
+                    display="flex"
+                    flexDirection="row"
+                    mt={10}
+                    key={book.id}
+                    testID="tesCommentBookContainer">
                     <Avatar mr="$3">
                       <AvatarFallbackText fontFamily="$heading">
                         Picture
