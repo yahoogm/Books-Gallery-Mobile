@@ -51,7 +51,6 @@ export type CommentProps = {
   handleButton: HandleBookCommentFunction;
   isEdit: boolean;
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  commentSchema: ObjectSchema<FormCommentValues>;
   initialValues: FormCommentValues;
   isLogin: boolean;
   user: UserItem;

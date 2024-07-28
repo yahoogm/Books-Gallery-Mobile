@@ -1,0 +1,806 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Comment match snapshot when renders and given props 1`] = `
+<View
+  data-style=""
+  dataSet={
+    {
+      "style": "",
+    }
+  }
+  style={
+    [
+      undefined,
+      {},
+      undefined,
+      {},
+      undefined,
+      {},
+      undefined,
+      undefined,
+    ]
+  }
+  sx={{}}
+>
+  <Text
+    accessibilityRole="header"
+    data-style=""
+    dataSet={
+      {
+        "style": "",
+      }
+    }
+    style={
+      {
+        "color": "#262626",
+        "fontFamily": undefined,
+        "fontSize": 20,
+        "fontWeight": "700",
+        "letterSpacing": -0.2,
+        "lineHeight": 32,
+        "marginVertical": 0,
+      }
+    }
+  >
+    Komentar
+  </Text>
+  <View
+    data-style=""
+    dataSet={
+      {
+        "style": "",
+      }
+    }
+    style={
+      [
+        undefined,
+        {},
+        undefined,
+        {},
+        undefined,
+        {},
+        undefined,
+        undefined,
+      ]
+    }
+    sx={{}}
+  >
+    <View
+      data-style=""
+      dataSet={
+        {
+          "disabled": "false",
+          "focus": "false",
+          "focusVisible": "false",
+          "hover": "false",
+          "invalid": "false",
+          "readonly": "false",
+          "required": "true",
+          "style": "",
+        }
+      }
+      size="sm"
+      states={
+        {
+          "disabled": undefined,
+          "focus": false,
+          "focusVisible": false,
+          "hover": false,
+          "invalid": undefined,
+          "readonly": undefined,
+          "required": true,
+        }
+      }
+      style={
+        [
+          undefined,
+          {},
+          undefined,
+          {
+            "borderColor": "#D4D4D4",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "height": 100,
+            "width": "100%",
+          },
+          undefined,
+          {},
+          undefined,
+          {},
+          undefined,
+          {},
+          undefined,
+          undefined,
+        ]
+      }
+      sx={{}}
+      variant="default"
+    >
+      <TextInput
+        accessible={true}
+        aria-label="Input Field"
+        aria-required={true}
+        aria-selected={false}
+        data-style=""
+        dataSet={
+          {
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+            "invalid": "false",
+            "readonly": "false",
+            "required": "true",
+            "style": "",
+          }
+        }
+        editable={true}
+        maxLength={200}
+        multiline={true}
+        onBlur={[Function]}
+        onChangeText={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Ketikkan komentar anda..."
+        placeholderTextColor="#8C8C8C"
+        states={
+          {
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": undefined,
+            "hover": false,
+            "invalid": undefined,
+            "readonly": undefined,
+            "required": true,
+          }
+        }
+        style={
+          [
+            undefined,
+            {},
+            undefined,
+            {
+              "color": "#262626",
+              "flex": 1,
+              "padding": 8,
+              "textAlignVertical": "top",
+            },
+            undefined,
+            {},
+            undefined,
+            {
+              "padding": 12,
+            },
+            undefined,
+            {
+              "fontSize": 14,
+            },
+            undefined,
+            {},
+            undefined,
+            {
+              "fontSize": 14,
+            },
+            undefined,
+            undefined,
+          ]
+        }
+        sx={
+          {
+            "fontSize": "$sm",
+          }
+        }
+        testID="testCommentTextArea"
+        value="berhasil"
+      />
+    </View>
+    <View
+      data-style=""
+      dataSet={
+        {
+          "style": "",
+        }
+      }
+      style={
+        [
+          undefined,
+          {},
+          undefined,
+          {},
+          undefined,
+          {},
+          undefined,
+          {
+            "display": "flex",
+            "flexDirection": "row",
+            "gap": 4,
+          },
+          undefined,
+          undefined,
+        ]
+      }
+      sx={
+        {
+          "display": "flex",
+          "flexDirection": "row",
+          "gap": 4,
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": true,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        action="positive"
+        collapsable={false}
+        data-style=""
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "true",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+            "style": "",
+          }
+        }
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        role="button"
+        size="sm"
+        states={
+          {
+            "active": false,
+            "disabled": true,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          [
+            undefined,
+            {},
+            undefined,
+            {
+              "alignItems": "center",
+              "backgroundColor": "#0077E6",
+              "borderRadius": 4,
+              "flexDirection": "row",
+              "justifyContent": "center",
+            },
+            undefined,
+            {},
+            undefined,
+            {
+              "backgroundColor": "#348352",
+              "borderColor": "#66B584",
+            },
+            undefined,
+            {},
+            undefined,
+            {
+              "height": 36,
+              "paddingHorizontal": 16,
+            },
+            undefined,
+            {},
+            undefined,
+            {
+              "opacity": 0.4,
+            },
+            undefined,
+            {
+              "backgroundColor": "#348352",
+              "borderColor": "#66B584",
+            },
+            undefined,
+            {},
+            undefined,
+            {
+              "height": 36,
+              "paddingHorizontal": 16,
+            },
+            undefined,
+            {},
+            undefined,
+            {
+              "marginVertical": 10,
+              "width": "25%",
+            },
+            undefined,
+            undefined,
+          ]
+        }
+        sx={
+          {
+            "marginVertical": 10,
+            "width": "$1/4",
+          }
+        }
+        testID="testButtonSubmit"
+        variant="solid"
+      >
+        <Text
+          data-style=""
+          dataSet={
+            {
+              "style": "",
+            }
+          }
+          size="sm"
+          style={
+            [
+              undefined,
+              {},
+              undefined,
+              {
+                "color": "#525252",
+                "fontFamily": undefined,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+              },
+              undefined,
+              {},
+              undefined,
+              {
+                "fontSize": 14,
+                "lineHeight": 20,
+              },
+              undefined,
+              undefined,
+              {},
+              undefined,
+              {
+                "color": "#FCFCFC",
+              },
+              undefined,
+              {},
+              undefined,
+              {
+                "color": "#FCFCFC",
+                "fontWeight": "600",
+              },
+              undefined,
+              {
+                "color": "#2A7948",
+              },
+              undefined,
+              {
+                "color": "#FCFCFC",
+              },
+              undefined,
+              {},
+              undefined,
+              {
+                "color": "#FCFCFC",
+              },
+              undefined,
+              undefined,
+            ]
+          }
+          sx={{}}
+          testID="testButtonTextSubmit"
+        >
+          Kirim
+        </Text>
+      </View>
+    </View>
+    <View
+      data-style=""
+      dataSet={
+        {
+          "style": "",
+        }
+      }
+      style={
+        [
+          undefined,
+          {},
+          undefined,
+          {},
+          undefined,
+          {},
+          undefined,
+          {
+            "display": "flex",
+            "flexDirection": "row",
+            "marginTop": 10,
+          },
+          undefined,
+          undefined,
+        ]
+      }
+      sx={
+        {
+          "display": "flex",
+          "flexDirection": "row",
+          "mt": 10,
+        }
+      }
+    >
+      <View
+        data-style=""
+        dataSet={
+          {
+            "style": "",
+          }
+        }
+        size="md"
+        style={
+          [
+            undefined,
+            {},
+            undefined,
+            {
+              "alignItems": "center",
+              "backgroundColor": "#005DB4",
+              "borderRadius": 9999,
+              "justifyContent": "center",
+              "position": "relative",
+            },
+            undefined,
+            {},
+            undefined,
+            {
+              "height": 48,
+              "width": 48,
+            },
+            undefined,
+            {
+              "height": 48,
+              "width": 48,
+            },
+            undefined,
+            {
+              "marginRight": 12,
+            },
+            undefined,
+            undefined,
+          ]
+        }
+        sx={
+          {
+            "mr": "$3",
+          }
+        }
+      >
+        <Text
+          data-style=""
+          dataSet={
+            {
+              "style": "",
+            }
+          }
+          size="md"
+          style={
+            [
+              undefined,
+              {},
+              undefined,
+              {
+                "color": "#525252",
+                "fontFamily": undefined,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+              },
+              undefined,
+              {},
+              undefined,
+              {
+                "fontSize": 16,
+              },
+              undefined,
+              {
+                "fontSize": 16,
+              },
+              undefined,
+              {
+                "fontFamily": undefined,
+              },
+              undefined,
+              undefined,
+              {},
+              undefined,
+              {
+                "color": "#FCFCFC",
+                "fontWeight": "600",
+                "overflow": "hidden",
+                "textTransform": "uppercase",
+              },
+              undefined,
+              {},
+              undefined,
+              {},
+              undefined,
+              {
+                "fontFamily": undefined,
+              },
+              undefined,
+              undefined,
+            ]
+          }
+          sx={
+            {
+              "fontFamily": "$heading",
+            }
+          }
+        >
+          P
+        </Text>
+        <Image
+          alt="gambar"
+          aria-label="gambar"
+          data-style=""
+          dataSet={
+            {
+              "style": "",
+            }
+          }
+          onError={[Function]}
+          role="img"
+          size="md"
+          source={
+            {
+              "uri": "https://google.com",
+            }
+          }
+          style={
+            [
+              undefined,
+              {},
+              undefined,
+              {
+                "maxWidth": "100%",
+              },
+              undefined,
+              {},
+              undefined,
+              {
+                "height": 80,
+                "width": 80,
+              },
+              undefined,
+              undefined,
+              {},
+              undefined,
+              {
+                "borderRadius": 9999,
+                "height": "100%",
+                "position": "absolute",
+                "width": "100%",
+              },
+              undefined,
+              {},
+              undefined,
+              {
+                "height": "100%",
+                "width": "100%",
+              },
+              undefined,
+              undefined,
+            ]
+          }
+          sx={{}}
+        />
+      </View>
+      <View
+        data-style=""
+        dataSet={
+          {
+            "style": "",
+          }
+        }
+        style={
+          [
+            undefined,
+            {},
+            undefined,
+            {
+              "flexDirection": "column",
+            },
+            undefined,
+            {},
+            undefined,
+            {
+              "flex": 1,
+            },
+            undefined,
+            undefined,
+          ]
+        }
+        sx={
+          {
+            "flex": 1,
+          }
+        }
+      >
+        <View
+          data-style=""
+          dataSet={
+            {
+              "style": "",
+            }
+          }
+          style={
+            [
+              undefined,
+              {},
+              undefined,
+              {},
+              undefined,
+              {},
+              undefined,
+              {
+                "display": "flex",
+              },
+              undefined,
+              undefined,
+            ]
+          }
+          sx={
+            {
+              "display": "flex",
+            }
+          }
+        >
+          <Text
+            accessibilityRole="header"
+            data-style=""
+            dataSet={
+              {
+                "style": "",
+              }
+            }
+            style={
+              {
+                "color": "#262626",
+                "fontFamily": undefined,
+                "fontSize": 16,
+                "fontWeight": "700",
+                "letterSpacing": -0.2,
+                "lineHeight": 24,
+                "marginBottom": 1,
+                "marginVertical": 0,
+              }
+            }
+          >
+            testing
+          </Text>
+          <Text
+            data-style=""
+            dataSet={
+              {
+                "style": "",
+              }
+            }
+            size="xs"
+            style={
+              [
+                undefined,
+                {},
+                undefined,
+                {
+                  "color": "#525252",
+                  "fontFamily": undefined,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                },
+                undefined,
+                {},
+                undefined,
+                {
+                  "fontSize": 12,
+                  "lineHeight": 20,
+                },
+                undefined,
+                undefined,
+              ]
+            }
+            sx={{}}
+          >
+            testing
+          </Text>
+        </View>
+        <Text
+          data-style=""
+          dataSet={
+            {
+              "style": "",
+            }
+          }
+          size="sm"
+          style={
+            [
+              undefined,
+              {},
+              undefined,
+              {
+                "color": "#525252",
+                "fontFamily": undefined,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+              },
+              undefined,
+              {},
+              undefined,
+              {
+                "fontSize": 14,
+                "lineHeight": 20,
+              },
+              undefined,
+              {
+                "fontSize": 14,
+                "lineHeight": 20,
+              },
+              undefined,
+              {
+                "color": "black",
+              },
+              undefined,
+              undefined,
+            ]
+          }
+          sx={
+            {
+              "color": "black",
+            }
+          }
+        >
+          testing
+        </Text>
+      </View>
+      <View
+        data-style=""
+        dataSet={
+          {
+            "style": "",
+          }
+        }
+        style={
+          [
+            undefined,
+            {},
+            undefined,
+            {
+              "flexDirection": "column",
+            },
+            undefined,
+            {},
+            undefined,
+            undefined,
+          ]
+        }
+        sx={{}}
+      />
+    </View>
+  </View>
+</View>
+`;

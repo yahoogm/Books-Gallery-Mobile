@@ -9,7 +9,7 @@ import {
   HandleBookCommentFunction,
   AddCommentValues,
 } from './types';
-import * as Yup from 'yup';
+
 import firestore from '@react-native-firebase/firestore';
 import {useAppDispatch, useAppSelector} from '../../hooks/useRedux';
 import {
@@ -40,12 +40,6 @@ const CommentContainer = () => {
 
   // form add review
   const initialValues: FormCommentValues = {comment: ''};
-  const commentSchema = Yup.object().shape({
-    comment: Yup.string()
-      .min(10, 'Minimal 10 karakter')
-      .max(200, 'Maksimal 100 karakter')
-      .required('Mohon mengisi komentar!'),
-  });
 
   const showToast = (
     message: string,
@@ -160,7 +154,6 @@ const CommentContainer = () => {
       handleButton={handleButton}
       isEdit={isEdit}
       setIsEdit={setIsEdit}
-      commentSchema={commentSchema}
       initialValues={initialValues}
       isLogin={isLogin}
       user={user}

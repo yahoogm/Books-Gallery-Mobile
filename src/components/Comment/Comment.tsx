@@ -28,6 +28,7 @@ import {
 import {Formik} from 'formik';
 import {v4 as uuidv4} from 'uuid';
 import {CommentProps} from './types';
+import * as Yup from 'yup';
 
 const Comment: React.FC<CommentProps> = ({
   refOpenDeleteModal,
@@ -36,13 +37,19 @@ const Comment: React.FC<CommentProps> = ({
   handleButton,
   isEdit,
   setIsEdit,
-  commentSchema,
   initialValues,
   isLogin,
   user,
   detailBook,
   commentBook,
 }) => {
+  const commentSchema = Yup.object().shape({
+    comment: Yup.string()
+      .min(10, 'Minimal 10 karakter')
+      .max(200, 'Maksimal 100 karakter')
+      .required('Mohon mengisi komentar!'),
+  });
+
   const {
     handleNavigateUserNotLogin,
     handleAddCommentBook,
@@ -84,6 +91,7 @@ const Comment: React.FC<CommentProps> = ({
               isInvalid={false}
               isDisabled={false}>
               <TextareaInput
+                testID="testCommentTextArea"
                 placeholder="Ketikkan komentar anda..."
                 onChangeText={handleChange('comment')}
                 value={values.comment}
@@ -98,11 +106,14 @@ const Comment: React.FC<CommentProps> = ({
                 width={'$1/4'}
                 action="positive"
                 marginVertical={10}
+                testID="testButtonSubmit"
                 isDisabled={values.comment.length < 10 ? true : false}
                 onPress={() =>
                   isLogin ? handleSubmit() : handleNavigateUserNotLogin()
                 }>
-                <ButtonText>{isEdit ? 'Edit' : 'Kirim'}</ButtonText>
+                <ButtonText testID="testButtonTextSubmit">
+                  {isEdit ? 'Edit' : 'Kirim'}
+                </ButtonText>
               </Button>
 
               {isEdit && (
