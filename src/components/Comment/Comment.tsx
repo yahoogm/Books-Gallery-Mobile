@@ -29,6 +29,7 @@ import {Formik} from 'formik';
 import {v4 as uuidv4} from 'uuid';
 import {CommentProps} from './types';
 import * as Yup from 'yup';
+import moment from 'moment';
 
 const Comment: React.FC<CommentProps> = ({
   refOpenDeleteModal,
@@ -65,6 +66,7 @@ const Comment: React.FC<CommentProps> = ({
         initialValues={initialValues}
         onSubmit={(values, {resetForm}) => {
           const date = new Date();
+          const formatedDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
           const id = uuidv4();
 
           isEdit
@@ -76,8 +78,8 @@ const Comment: React.FC<CommentProps> = ({
                 id: id,
                 ulasan: values.comment,
                 userId: user.id,
-                createdAt: date.toISOString(),
-                updatedAt: date.toISOString(),
+                createdAt: formatedDate,
+                updatedAt: formatedDate,
               });
 
           resetForm();

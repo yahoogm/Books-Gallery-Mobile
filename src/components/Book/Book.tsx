@@ -32,6 +32,14 @@ const Book: React.FC<BookProps> = ({
       <View alignItems="center" marginTop={10}>
         <BookItem
           detailBook={
+            detailBook.volumeInfo.title !== null || undefined
+              ? detailBook.volumeInfo.title
+              : 'Penulis tidak diketahui'
+          }
+          label="Title"
+        />
+        <BookItem
+          detailBook={
             authorsName !== null || undefined
               ? authorsName
               : 'Penulis tidak diketahui'

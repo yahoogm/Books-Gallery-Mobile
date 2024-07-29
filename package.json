@@ -1,5 +1,5 @@
 {
-  "name": "BukuGaleri",
+  "name": "Books Gallery",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -27,6 +27,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "formik": "^2.4.6",
+    "moment": "^2.30.1",
     "react": "18.2.0",
     "react-native": "0.74.1",
     "react-native-config": "^1.5.2",
