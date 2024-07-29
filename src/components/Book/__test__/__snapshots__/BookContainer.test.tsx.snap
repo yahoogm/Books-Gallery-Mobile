@@ -137,7 +137,7 @@ exports[`BookContainerComponent renders corretly when given props 1`] = `
           ]
         }
       >
-        Baca Buku
+        Read Book
       </Text>
     </View>
   </View>
@@ -160,6 +160,59 @@ exports[`BookContainerComponent renders corretly when given props 1`] = `
       ]
     }
   >
+    <View
+      data-style=""
+      dataSet={
+        {
+          "style": "",
+        }
+      }
+      style={
+        [
+          undefined,
+          {},
+          {
+            "alignItems": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="header"
+        data-style=""
+        dataSet={
+          {
+            "style": "",
+          }
+        }
+        size="md"
+        style={
+          {
+            "fontSize": 32,
+            "fontWeight": "bold",
+            "marginVertical": 42.56,
+          }
+        }
+      >
+        Title:
+      </Text>
+      <Text
+        data-style=""
+        dataSet={
+          {
+            "style": "",
+          }
+        }
+        style={
+          [
+            undefined,
+            {},
+            undefined,
+          ]
+        }
+      />
+    </View>
     <View
       data-style=""
       dataSet={

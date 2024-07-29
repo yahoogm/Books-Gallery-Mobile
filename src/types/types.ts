@@ -54,6 +54,7 @@ export type RootStackParamList = {
 
 export type addReviewValues = {
   userName: string;
+  email: string;
   bookId: string;
   profilePic: string;
   id: string;

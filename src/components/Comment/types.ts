@@ -1,6 +1,5 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {BookItem, Comment, RootStackParamList} from '../../types/types';
-import {ObjectSchema} from 'yup';
 
 export type FormCommentValues = {
   comment: string;

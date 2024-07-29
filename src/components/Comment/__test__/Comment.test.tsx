@@ -57,6 +57,8 @@ describe('Comment', () => {
     const comment = {
       bookId: 'testing',
       createdAt: 'testing',
+      email: 'testing',
+
       id: 'testing',
       profilePic: 'https://google.com',
       ulasan: 'testing',
@@ -116,6 +118,8 @@ describe('Comment', () => {
     const comment = {
       bookId: 'testing',
       createdAt: 'testing',
+      email: 'testing',
+
       id: 'testing',
       profilePic: 'https://google.com',
       ulasan: 'testing',
@@ -179,6 +183,8 @@ describe('Comment', () => {
 
     const comment = {
       bookId: 'testing',
+      email: 'testing',
+
       createdAt: 'testing',
       id: 'testing',
       profilePic: 'https://google.com',
@@ -250,6 +256,7 @@ describe('Comment', () => {
 
     const comment = {
       bookId: 'testing',
+      email: 'testing',
       createdAt: 'testing',
       id: 'testing',
       profilePic: 'https://google.com',
@@ -318,6 +325,7 @@ describe('Comment', () => {
     const comment = {
       bookId: 'testing',
       createdAt: 'testing',
+      email: 'testing',
       id: 'testing',
       profilePic: 'https://google.com',
       ulasan: 'testing',
@@ -343,7 +351,7 @@ describe('Comment', () => {
     const tree = renderComponent(props);
     const button = tree.getByTestId('testButtonTextSubmit');
 
-    expect(button.props.children).toBe('Kirim');
+    expect(button.props.children).toBe('Submit');
   });
 
   it('should render button text edit if isEdit props true', async () => {
@@ -377,6 +385,7 @@ describe('Comment', () => {
 
     const comment = {
       bookId: 'testing',
+      email: 'testing',
       createdAt: 'testing',
       id: 'testing',
       profilePic: 'https://google.com',
@@ -438,6 +447,7 @@ describe('Comment', () => {
     const comment = {
       bookId: 'testing',
       createdAt: 'testing',
+      email: 'testing',
       id: 'testing',
       profilePic: 'https://google.com',
       ulasan: 'testing',
@@ -496,6 +506,8 @@ describe('Comment', () => {
 
     const comment = {
       bookId: 'testing',
+      email: 'testing',
+
       createdAt: 'testing',
       id: 'testing',
       profilePic: 'https://google.com',
@@ -555,6 +567,8 @@ describe('Comment', () => {
 
     const comment = {
       bookId: 'testing',
+      email: 'testing',
+
       createdAt: 'testing',
       id: 'testing',
       profilePic: 'https://google.com',
@@ -615,6 +629,8 @@ describe('Comment', () => {
 
     const comment = {
       bookId: 'testing',
+      email: 'testing',
+
       createdAt: 'testing',
       id: 'testing',
       profilePic: 'https://google.com',

@@ -12,6 +12,7 @@ import {
   Heading,
   Image,
   Spinner,
+  VStack,
 } from '@gluestack-ui/themed';
 import {Formik} from 'formik';
 import React, {useEffect} from 'react';
@@ -65,12 +66,12 @@ const Content = () => {
 
         <HStack marginTop={5}>
           <Text size="xs" color="black">
-            Buku yang tertera diambil dari{' '}
+            Book displayed using the{' '}
           </Text>
           <Link href="https://books.google.com/">
-            <LinkText size="xs" color="black" bold={true} italic={true}>
+            <Text size="xs" color="black" bold={true} italic={true}>
               Google Books API{' '}
-            </LinkText>
+            </Text>
           </Link>
         </HStack>
       </View>
@@ -85,7 +86,7 @@ const Content = () => {
             <View flexDirection="row" gap={10}>
               <Input variant="outline" size="md" width={'$56'}>
                 <InputField
-                  placeholder="Ketikkan judul buku..."
+                  placeholder="Find your books here..."
                   size="xs"
                   color="black"
                   onChangeText={handleChange('search')}
@@ -94,7 +95,7 @@ const Content = () => {
               </Input>
 
               <Button onPress={() => handleSubmit()}>
-                <ButtonText>Cari</ButtonText>
+                <ButtonText>Search</ButtonText>
               </Button>
             </View>
           )}

@@ -42,7 +42,7 @@ exports[`Comment match snapshot when renders and given props 1`] = `
       }
     }
   >
-    Komentar
+    Comment
   </Text>
   <View
     data-style=""
@@ -141,7 +141,7 @@ exports[`Comment match snapshot when renders and given props 1`] = `
         onChangeText={[Function]}
         onFocus={[Function]}
         onKeyPress={[Function]}
-        placeholder="Ketikkan komentar anda..."
+        placeholder="Insert your comment..."
         placeholderTextColor="#8C8C8C"
         states={
           {
@@ -406,7 +406,7 @@ exports[`Comment match snapshot when renders and given props 1`] = `
           sx={{}}
           testID="testButtonTextSubmit"
         >
-          Kirim
+          Submit
         </Text>
       </View>
     </View>
