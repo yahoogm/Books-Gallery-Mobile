@@ -12,6 +12,7 @@ export type VolumeInfo = {
 
 export type Comment = {
   bookId: string;
+  email: string;
   createdAt: string;
   id: string;
   profilePic: string;

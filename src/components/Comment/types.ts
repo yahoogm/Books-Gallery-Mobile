@@ -8,6 +8,7 @@ export type FormCommentValues = {
 
 export type AddCommentValues = {
   userName: string;
+  email: string;
   bookId: string;
   profilePic: string;
   id: string;

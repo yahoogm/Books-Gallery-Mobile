@@ -9,6 +9,7 @@ const initialState: BookState = {
 
   commentBook: [
     {
+      email: '',
       bookId: '',
       createdAt: '',
       id: '',

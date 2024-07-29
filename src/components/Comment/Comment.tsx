@@ -70,9 +70,10 @@ const Comment: React.FC<CommentProps> = ({
           const id = uuidv4();
 
           isEdit
-            ? handleUpdateCommentBook(values.comment, date.toISOString())
+            ? handleUpdateCommentBook(values.comment, formatedDate)
             : handleAddCommentBook({
                 userName: user.name,
+                email: user.email,
                 bookId: detailBook.id,
                 profilePic: user.photo,
                 id: id,
@@ -170,7 +171,7 @@ const Comment: React.FC<CommentProps> = ({
                     </VStack>
 
                     <VStack>
-                      {user.id === book.userId && (
+                      {user.email === book.email && (
                         <Menu
                           placement="left bottom"
                           backgroundColor="$coolGray200"
