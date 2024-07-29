@@ -98,7 +98,7 @@ const MainNavigator = () => {
               </Menu>
             ) : (
               <Button
-                title="Masuk"
+                title="Login"
                 onPress={() => navigation.navigate('Login')}
               />
             ),

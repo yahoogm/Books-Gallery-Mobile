@@ -60,7 +60,7 @@ const Comment: React.FC<CommentProps> = ({
   } = handleButton;
   return (
     <View>
-      <Heading>Komentar</Heading>
+      <Heading>Comment</Heading>
       <Formik
         validationSchema={commentSchema}
         initialValues={initialValues}
@@ -95,7 +95,7 @@ const Comment: React.FC<CommentProps> = ({
               isDisabled={false}>
               <TextareaInput
                 testID="testCommentTextArea"
-                placeholder="Ketikkan komentar anda..."
+                placeholder="Insert your comment..."
                 onChangeText={handleChange('comment')}
                 value={values.comment}
                 fontSize={'$sm'}
@@ -115,7 +115,7 @@ const Comment: React.FC<CommentProps> = ({
                   isLogin ? handleSubmit() : handleNavigateUserNotLogin()
                 }>
                 <ButtonText testID="testButtonTextSubmit">
-                  {isEdit ? 'Edit' : 'Kirim'}
+                  {isEdit ? 'Edit' : 'Submit'}
                 </ButtonText>
               </Button>
 
@@ -130,7 +130,7 @@ const Comment: React.FC<CommentProps> = ({
                     setIsEdit(false);
                     setFieldValue('comment', '');
                   }}>
-                  <ButtonText>Batal</ButtonText>
+                  <ButtonText>Cancel</ButtonText>
                 </Button>
               )}
             </View>
@@ -212,7 +212,7 @@ const Comment: React.FC<CommentProps> = ({
                             }}
                             ref={refOpenDeleteModal}>
                             <Icon as={TrashIcon} mr={'$2'} color="red" />
-                            <MenuItemLabel color="red">Hapus</MenuItemLabel>
+                            <MenuItemLabel color="red">Delete</MenuItemLabel>
                           </MenuItem>
                         </Menu>
                       )}
@@ -227,7 +227,7 @@ const Comment: React.FC<CommentProps> = ({
                         <ModalContent>
                           <ModalHeader>
                             <Heading size="lg">
-                              Yakin ingin menghapus komentar?
+                              Are you sure you want to delete the comment?
                             </Heading>
                           </ModalHeader>
                           <ModalFooter>
@@ -239,7 +239,7 @@ const Comment: React.FC<CommentProps> = ({
                               onPress={() => {
                                 setDeleteModal(false);
                               }}>
-                              <ButtonText>Batal</ButtonText>
+                              <ButtonText>Cancel</ButtonText>
                             </Button>
                             <Button
                               size="sm"
@@ -249,7 +249,7 @@ const Comment: React.FC<CommentProps> = ({
                                 setDeleteModal(false);
                                 handleDeleteCommentBook();
                               }}>
-                              <ButtonText>Hapus</ButtonText>
+                              <ButtonText>Delete</ButtonText>
                             </Button>
                           </ModalFooter>
                         </ModalContent>
@@ -259,7 +259,7 @@ const Comment: React.FC<CommentProps> = ({
                 );
               })
             ) : (
-              <Text>Tidak ada komentar</Text>
+              <Text>Comment not found</Text>
             )}
           </View>
         )}

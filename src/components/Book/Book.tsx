@@ -25,7 +25,7 @@ const Book: React.FC<BookProps> = ({
 
       <View display="flex" flexDirection="row" gap={10} marginTop={10}>
         <Button onPress={() => setShowBook(true)} ref={refReadBook}>
-          <ButtonText>Baca Buku</ButtonText>
+          <ButtonText>Read Book</ButtonText>
         </Button>
       </View>
 
@@ -34,15 +34,13 @@ const Book: React.FC<BookProps> = ({
           detailBook={
             detailBook.volumeInfo.title !== null || undefined
               ? detailBook.volumeInfo.title
-              : 'Penulis tidak diketahui'
+              : 'Title not found'
           }
           label="Title"
         />
         <BookItem
           detailBook={
-            authorsName !== null || undefined
-              ? authorsName
-              : 'Penulis tidak diketahui'
+            authorsName !== null || undefined ? authorsName : 'Author not found'
           }
           label="Author"
         />
@@ -50,7 +48,7 @@ const Book: React.FC<BookProps> = ({
           detailBook={
             detailBook.volumeInfo.publisher !== null || undefined
               ? detailBook.volumeInfo.publisher
-              : 'Penerbit tidak diketahui'
+              : 'Publisher not found'
           }
           label="Publisher"
         />
@@ -58,7 +56,7 @@ const Book: React.FC<BookProps> = ({
           detailBook={
             detailBook.volumeInfo.publishedDate !== null || undefined
               ? detailBook.volumeInfo.publishedDate
-              : 'Waktu diterbitkan tidak diketahui'
+              : 'Published date not found'
           }
           label="Published Date"
         />
@@ -66,15 +64,13 @@ const Book: React.FC<BookProps> = ({
           detailBook={
             detailBook.volumeInfo.pageCount !== null || undefined
               ? detailBook.volumeInfo.pageCount
-              : 'Jumlah halaman tidak diketahui'
+              : 'Page count not found'
           }
           label="Page Count"
         />
         <BookItem
           detailBook={
-            categories !== null || undefined
-              ? categories
-              : 'Kategori tidak diketahui'
+            categories !== null || undefined ? categories : 'Category not found'
           }
           label="Category"
         />
@@ -82,7 +78,7 @@ const Book: React.FC<BookProps> = ({
           detailBook={
             detailBook.volumeInfo.description !== null || undefined
               ? detailBook.volumeInfo.description
-              : 'Deskripsi tidak diketahui'
+              : 'Description not found'
           }
           label="Description"
         />
