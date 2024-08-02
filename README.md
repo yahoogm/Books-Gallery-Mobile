@@ -1,79 +1,61 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Books Gallery
 
-# Getting Started
+# About The Project
 
-> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+This application books gallery application was built to make it easier for people who like to read to more easily access books, because the system is online, where we don't have to go to a bookstore. You can read books directly in the application because the <a href="https://developers.google.com/books/docs/v1/getting_started" target="blank">Google Books API</a> provides an embedded viewer feature, but not all books can be read directly, for the reason I don't know for sure but the sentence is explained in the following Google Book API documentation.
+![PREVIEW-HOME!](/src/assets/image/embed-viewer-issue.png)
 
-## Step 1: Start the Metro Server
+### Preview Home
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+![PREVIEW-HOME!](/src/assets/image/preview-home.png)
 
-To start Metro, run the following command from the _root_ of your React Native project:
+### Preview Login
 
-```bash
-# using npm
-npm start
+![PREVIEW-HOME!](/src/assets/image/login.png)
 
-# OR using Yarn
-yarn start
-```
+### Preview Detail Book
 
-## Step 2: Start your Application
+![PREVIEW-DETAIL-BOOK!](/src/assets/image/detail-1.png)
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+### Preview Comment
 
-### For Android
+![PREVIEW-DETAIL-BOOK!](/src/assets/image/detail-2.png)
 
-```bash
-# using npm
-npm run android
+# Build With
 
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+<a href="https://ReactNative.org/docs" target="_blank"><img alt="ReactNative" src="https://img.shields.io/badge/ReactNative-white.svg?logo=react&logoColor=black">
+</a>
+<a href="https://firebase.google.com" target="_blank"><img alt="Firebase" src="https://img.shields.io/badge/Firebase-blue.svg?logo=firebase&logoColor=orange">
+</a>
+<a href="https://developers.google.com/books" target="_blank"><img alt="Firebase" src="https://img.shields.io/badge/Books%20API-success.svg?logo=google&logoColor=informational">
+</a>
+<a href="https://redux-toolkit.js.org/introduction/getting-started" target="_blank"><img alt="ReduxToolkit" src="https://img.shields.io/badge/Redux%20Toolkit-black.svg?logo=redux&logoColor=blueviolet">
+</a>
+<a href="https://id.wikipedia.org/wiki/JavaScript" target="_blank"><img alt="JavaScript" src="https://img.shields.io/badge/Javascript-black.svg?logo=javascript&logoColor=yellow">
+</a>
+<a href="https://daisyui.com/" target="_blank"><img alt="daisyUI" src="https://img.shields.io/badge/daisy%20UI-white.svg?logo=daisyui&logoColor=blueviolet">
+</a>
+<a href="https://axios-http.com/docs/intro" target="_blank"><img alt="axios" src="https://img.shields.io/badge/axios-white.svg?logo=axios&logoColor=blueviolet">
+</a>
+<a href="https://eslint.org/" target="_blank"><img alt="eslint" src="https://img.shields.io/badge/eslint-white.svg?logo=eslint&logoColor=blueviolet">
+</a>
+<a href="https://react-icons.github.io/react-icons/" target="_blank"><img alt="reactIcons" src="https://img.shields.io/badge/React%20Icons-white.svg?logo=react&logoColor=blue">
+</a>
+<a href="https://formik.org/" target="_blank"><img alt="formik" src="https://img.shields.io/badge/formik-blueviolet.svg?logo=formik&logoColor=blueviolet">
+</a>
+<a href="https://formik.org/" target="_blank"><img alt="reactToastify" src="https://img.shields.io/badge/React%20Toastify-white.svg?logo=react&logoColor=blue">
+</a>
+<a href="https://redux-toolkit.js.org/introduction/getting-started" target="_blank"><img alt="reduxPersist" src="https://img.shields.io/badge/Redux%20Persist-black.svg?logo=redux&logoColor=blueviolet">
+</a>
+<a href="https://redux-toolkit.js.org/introduction/getting-started" target="_blank"><img alt="reduxThunk" src="https://img.shields.io/badge/Redux%20Thunk-white.svg?logo=redux&logoColor=blue">
+</a>
+<a href="https://www.figma.com/" target="_blank"><img alt="figma" src="https://img.shields.io/badge/Figma-blueviolet.svg?logo=figma&logoColor=white">
+</a>
+<a href="https://github.com/ai/uuidv4" target="_blank"><img alt="uuidv4" src="https://img.shields.io/badge/uuidv4-white.svg?logo=uuidv4&logoColor=white">
+</a>
+<a href="https://github.com/jquense/yup" target="_blank"><img alt="yup" src="https://img.shields.io/badge/yup-white.svg?logo=yup&logoColor=white">
+</a>
+<a href="https://momentjs.com/" target="_blank"><img alt="momentjs" src="https://img.shields.io/badge/momentjs-white.svg?logo=momentjs&logoColor=white">
+</a>
+<a href="https://github.com/fisshy/react-scroll" target="_blank"><img alt="reactScroll" src="https://img.shields.io/badge/React%20Scroll-white.svg?logo=react&logoColor=blue">
+</a>
