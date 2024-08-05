@@ -32,7 +32,7 @@ const Book: React.FC<BookProps> = ({
       <View alignItems="center" marginTop={10}>
         <BookItem
           detailBook={
-            detailBook.volumeInfo.title !== null || undefined
+            detailBook.volumeInfo.title !== undefined || null || ''
               ? detailBook.volumeInfo.title
               : 'Title not found'
           }
@@ -40,13 +40,15 @@ const Book: React.FC<BookProps> = ({
         />
         <BookItem
           detailBook={
-            authorsName !== null || undefined ? authorsName : 'Author not found'
+            authorsName !== undefined || null || ''
+              ? authorsName
+              : 'Author not found'
           }
           label="Author"
         />
         <BookItem
           detailBook={
-            detailBook.volumeInfo.publisher !== null || undefined
+            detailBook.volumeInfo.publisher !== undefined || null || ''
               ? detailBook.volumeInfo.publisher
               : 'Publisher not found'
           }
@@ -54,7 +56,7 @@ const Book: React.FC<BookProps> = ({
         />
         <BookItem
           detailBook={
-            detailBook.volumeInfo.publishedDate !== null || undefined
+            detailBook.volumeInfo.publishedDate !== undefined || null || ''
               ? detailBook.volumeInfo.publishedDate
               : 'Published date not found'
           }
@@ -62,7 +64,7 @@ const Book: React.FC<BookProps> = ({
         />
         <BookItem
           detailBook={
-            detailBook.volumeInfo.pageCount !== null || undefined
+            detailBook.volumeInfo.pageCount !== undefined || 0
               ? detailBook.volumeInfo.pageCount
               : 'Page count not found'
           }
@@ -70,13 +72,15 @@ const Book: React.FC<BookProps> = ({
         />
         <BookItem
           detailBook={
-            categories !== null || undefined ? categories : 'Category not found'
+            categories.length !== 0 || undefined
+              ? categories
+              : 'Category not found'
           }
           label="Category"
         />
         <BookItem
           detailBook={
-            detailBook.volumeInfo.description !== null || undefined
+            detailBook.volumeInfo.description !== undefined || null || ''
               ? detailBook.volumeInfo.description
               : 'Description not found'
           }

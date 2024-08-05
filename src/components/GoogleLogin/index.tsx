@@ -49,7 +49,7 @@ const GoogleLogin = () => {
               <VStack space="xs">
                 <ToastTitle>
                   {user.name !== undefined || null
-                    ? `Selamat datang ${user.name}`
+                    ? `Welcome ${user.name}`
                     : 'user'}
                 </ToastTitle>
               </VStack>
@@ -67,7 +67,7 @@ const GoogleLogin = () => {
         render: () => (
           <Toast action="error" variant="solid">
             <VStack space="xs">
-              <ToastTitle>Login gagal</ToastTitle>
+              <ToastTitle>Login failed</ToastTitle>
             </VStack>
           </Toast>
         ),
@@ -107,7 +107,7 @@ const GoogleLogin = () => {
             },
           }}
           onPress={() => signIn()}>
-          <ButtonText size="sm">Masuk Dengan Google</ButtonText>
+          <ButtonText size="sm">Login With Google</ButtonText>
         </Button>
       </Box>
     </Card>

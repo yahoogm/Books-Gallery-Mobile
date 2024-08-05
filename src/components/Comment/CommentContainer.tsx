@@ -59,7 +59,7 @@ const CommentContainer = () => {
   const handleNavigateUserNotLogin: HandleBookCommentFunction['handleNavigateUserNotLogin'] =
     () => {
       navigation.navigate('Login');
-      showToast('Silahkan login dahulu!', 'info');
+      showToast('Please login first!', 'info');
     };
 
   // function to handle add comment for a book
@@ -70,10 +70,10 @@ const CommentContainer = () => {
           .collection('ulasan')
           .add(review)
           .then(() => {
-            showToast('Komentar terkirim', 'success');
+            showToast('Comment sent', 'success');
           });
       } catch (error) {
-        showToast('Komentar gagal dikirim', 'error');
+        showToast('Comment failed to send', 'error');
       }
     };
 
@@ -86,10 +86,10 @@ const CommentContainer = () => {
           .doc(commentBookId)
           .delete()
           .then(() => {
-            showToast('Berhasil menghapus komentar', 'success');
+            showToast('Success delete comment', 'success');
           });
       } catch (error) {
-        showToast('Gagal menghapus komentar', 'error');
+        showToast('Comment failed to delete', 'error');
       }
     }, [commentBookId]);
 
@@ -106,12 +106,12 @@ const CommentContainer = () => {
               updatedAt,
             })
             .then(() => {
-              showToast('Berhasil memperbarui komentar', 'success');
+              showToast('Success update comment', 'success');
             });
 
           setIsEdit(false);
         } catch (error) {
-          showToast('Gagal memperbarui komentar', 'error');
+          showToast('Comment failed to update', 'error');
         }
       },
       [commentBookId],
@@ -132,7 +132,7 @@ const CommentContainer = () => {
               });
             });
         } catch (error) {
-          showToast('Gagal mengambil id!', 'error');
+          showToast('Failed get id!', 'error');
         }
       },
       [dispatch],
