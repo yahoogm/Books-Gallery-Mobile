@@ -21,6 +21,10 @@ This application books gallery application was built to make it easier for peopl
 
 ![PREVIEW-DETAIL-BOOK!](./public/assets/images/detail-2.png)
 
+### Demo app
+
+![PREVIEW-DETAIL-BOOK!](./public/assets/video/demo.mp4)
+
 # Build With
 
 <a href="https://reactnative.dev/" target="_blank"><img alt="ReactNative" src="https://img.shields.io/badge/ReactNative-white.svg?logo=react&logoColor=black">
