@@ -36,7 +36,7 @@ const MainNavigator = () => {
           return (
             <Toast nativeID={toastId} action="success" variant="solid">
               <VStack space="xs">
-                <ToastTitle>Logout berhasil</ToastTitle>
+                <ToastTitle>Logout success</ToastTitle>
               </VStack>
             </Toast>
           );
@@ -50,7 +50,7 @@ const MainNavigator = () => {
           return (
             <Toast nativeID={toastId} action="error" variant="solid">
               <VStack space="xs">
-                <ToastTitle>Logout gagal</ToastTitle>
+                <ToastTitle>Logout failed</ToastTitle>
               </VStack>
             </Toast>
           );
