@@ -3,7 +3,7 @@
 # About The Project
 
 This application books gallery application was built to make it easier for people who like to read to more easily access books, because the system is online, where we don't have to go to a bookstore. You can read books directly in the application because the <a href="https://developers.google.com/books/docs/v1/getting_started" target="blank">Google Books API</a> provides an embedded viewer feature, but not all books can be read directly, for the reason I don't know for sure but the sentence is explained in the following Google Book API documentation.
-![PREVIEW-HOME!](https://private-user-images.githubusercontent.com/100346233/354523637-0f9d21a7-84aa-47a9-9c6d-db713833ad95.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjI1ODcxODAsIm5iZiI6MTcyMjU4Njg4MCwicGF0aCI6Ii8xMDAzNDYyMzMvMzU0NTIzNjM3LTBmOWQyMWE3LTg0YWEtNDdhOS05YzZkLWRiNzEzODMzYWQ5NS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwODAyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDgwMlQwODIxMjBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xZjcyYTUwZjEyMzkxYjFkODRiZGY0ZjJmMDUzODBjYWY3YmNmZTUwOGJlZDE1MjkyOGViMzkwNDkxMTg3NGUwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.rtDAEZpPTi0_qS1VYUbsonqVSNXcvNjDs7Iahyc54ms)
+![PREVIEW-HOME!](./public/assets/images/embed-viewer-issue.png)
 
 ### Preview Home
 
