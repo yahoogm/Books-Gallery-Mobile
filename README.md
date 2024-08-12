@@ -21,9 +21,6 @@ This application books gallery application was built to make it easier for peopl
 
 ![PREVIEW-DETAIL-BOOK!](./public/assets/images/detail-2.png)
 
-### Demo app
-
-![PREVIEW-DETAIL-BOOK!](./public/assets/video/demo.mp4)
 
 # Build With
 
